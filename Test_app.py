@@ -1469,5 +1469,5 @@ demo_navn = st.sidebar.selectbox('Vælg dataform',overskrifter_til_menu.keys())
 overskrifter_til_menu[demo_navn]()
 from PIL import Image
 
-image = Image.open(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Logo.png')
+image = Image.open('Logo.png')
 st.sidebar.image(image)
