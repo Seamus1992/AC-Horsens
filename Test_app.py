@@ -148,14 +148,14 @@ def Teamsheet():
     import pandas as pd
     import numpy as np
     import os
-    dfbenchmark = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Benchmarks.xlsx')
+    dfbenchmark = pd.read_excel('Benchmarks.xlsx')
     dfårgange = dfbenchmark['Årgang'].drop_duplicates(keep='last')
     option2 = st.selectbox('Vælg årgang',dfårgange)
-    df = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Team Stats Horsens U15.xlsx')
+    df = pd.read_excel('Team Stats Horsens U15.xlsx')
     df = df.iloc[2:]
-    df2 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Team Stats Horsens U17.xlsx')
+    df2 = pd.read_excel('Team Stats Horsens U17.xlsx')
     df2 = df2.iloc[2:]
-    df3 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Team Stats Horsens U19.xlsx')
+    df3 = pd.read_excel('Team Stats Horsens U19.xlsx')
     df3 = df3.iloc[2:]
     df = df.append(df2).append(df3)
     df = pd.DataFrame(df)
@@ -273,8 +273,8 @@ def Individuelt_dashboard():
     import plotly.graph_objects as go
 
     def U19():
-        U19navne = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Navne.xlsx')
-        dfU19 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 spillere sæson.xlsx')
+        U19navne = pd.read_excel('Navne.xlsx')
+        dfU19 = pd.read_excel('U19 spillere sæson.xlsx')
         dfU19 = dfU19[dfU19['Minutes played'] >= 300]
         dfU19['Position'] = dfU19['Position'].astype(str)
         dfU19['Team'] = dfU19['Team'].astype(str)
@@ -419,7 +419,7 @@ def Individuelt_dashboard():
         df_samlet = df_samlet.groupby(['Spillere']).mean(numeric_only=True)
 
         #Start på seneste 5 kampe
-        dfU19s5 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 spillere seneste 5.xlsx')
+        dfU19s5 = pd.read_excel('U19 spillere seneste 5.xlsx')
         dfU19s5 = dfU19s5[dfU19s5['Minutes played'] >= 200]
         dfU19s5['Position'] = dfU19s5['Position'].astype(str)
         dfU19s5['Team'] = dfU19s5['Team'].astype(str)
@@ -619,8 +619,8 @@ def Individuelt_dashboard():
         import plotly.express as px 
         import time
         import plotly.graph_objects as go
-        U19navne = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Navne.xlsx')
-        dfU19 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 spillere sæson.xlsx')
+        U19navne = pd.read_excel('Navne.xlsx')
+        dfU19 = pd.read_excel('U17 spillere sæson.xlsx')
         dfU19 = dfU19[dfU19['Minutes played'] >= 300]
         dfU19['Position'] = dfU19['Position'].astype(str)
         dfU19['Team'] = dfU19['Team'].astype(str)
@@ -765,7 +765,7 @@ def Individuelt_dashboard():
         df_samlet = df_samlet.groupby(['Spillere']).mean(numeric_only=True)
 
         #Start på seneste 5 kampe
-        dfU19s5 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 spillere seneste 5.xlsx')
+        dfU19s5 = pd.read_excel('U17 spillere seneste 5.xlsx')
         dfU19s5 = dfU19s5[dfU19s5['Minutes played'] >= 200]
         dfU19s5['Position'] = dfU19s5['Position'].astype(str)
         dfU19s5['Team'] = dfU19s5['Team'].astype(str)
@@ -965,8 +965,8 @@ def Individuelt_dashboard():
         import plotly.express as px 
         import time
         import plotly.graph_objects as go
-        U19navne = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Navne.xlsx')
-        dfU19 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 spillere sæson.xlsx')
+        U19navne = pd.read_excel('Navne.xlsx')
+        dfU19 = pd.read_excel('U15 spillere sæson.xlsx')
         dfU19 = dfU19[dfU19['Minutes played'] >= 300]
         dfU19['Position'] = dfU19['Position'].astype(str)
         dfU19['Team'] = dfU19['Team'].astype(str)
@@ -1111,7 +1111,7 @@ def Individuelt_dashboard():
         df_samlet = df_samlet.groupby(['Spillere']).mean(numeric_only=True)
 
         #Start på seneste 5 kampe
-        dfU19s5 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 spillere seneste 5.xlsx')
+        dfU19s5 = pd.read_excel('U15 spillere seneste 5.xlsx')
         dfU19s5 = dfU19s5[dfU19s5['Minutes played'] >= 200]
         dfU19s5['Position'] = dfU19s5['Position'].astype(str)
         dfU19s5['Team'] = dfU19s5['Team'].astype(str)
@@ -1320,7 +1320,7 @@ def event_data():
         import matplotlib.pyplot as plt
         import plotly.express as px
 
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 eventdata.csv',low_memory=False)
+        df = pd.read_csv('U15 eventdata.csv',low_memory=False)
 
         kampe = df['label'].drop_duplicates(keep='first')
         option4 = st.multiselect('Vælg kamp (Hvis ingen kamp er valgt, vises alle)',kampe)
@@ -1366,7 +1366,7 @@ def event_data():
         import matplotlib.pyplot as plt
         import plotly.express as px
 
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 eventdata.csv',low_memory=False)
+        df = pd.read_csv('U17 eventdata.csv',low_memory=False)
 
         kampe = df['label'].drop_duplicates(keep='first')
         option4 = st.multiselect('Vælg kamp (Hvis ingen kamp er valgt, vises alle)',kampe)
@@ -1412,7 +1412,7 @@ def event_data():
         import matplotlib.pyplot as plt
         import plotly.express as px
 
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 eventdata.csv',low_memory=False)
+        df = pd.read_csv('U19 eventdata.csv',low_memory=False)
 
         kampe = df['label'].drop_duplicates(keep='first')
         option4 = st.multiselect('Vælg kamp (Hvis ingen kamp er valgt, vises alle)',kampe)
