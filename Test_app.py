@@ -2,7 +2,7 @@ import streamlit as st
 
 def Wellness_data():
     import pandas as pd
-    df0 = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\samlet wellness.csv')
+    df0 = pd.read_csv('samlet wellness.csv')
     df_wellness = df0[['Navn','Ugenummer','Årgang','Hvor udmattet er du?','Hvordan var din søvn i den seneste uge?','Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?','Bedøm din muskeltræthed','Hvordan har du det psykologisk (mentalt)?', 'Hvordan har din kost(mad) set ud den seneste uge?','Hvordan har dit humør været efter fodboldtræning den seneste uge?']]
 
     Årgang = df_wellness['Årgang']
