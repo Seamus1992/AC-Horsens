@@ -4,7 +4,7 @@ import streamlit as st
 import numpy as np
 from datetime import datetime
 
-df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\Teamsheet egne kampe.csv')
+df = pd.read_csv('Teamsheet egne kampe.csv')
 kampe = df['label']
 option = st.multiselect('Vælg kamp (Hvis ingen kamp er valgt, vises gennemsnit for alle)',kampe)
 if len(option) > 0:
