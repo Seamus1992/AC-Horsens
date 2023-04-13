@@ -1470,8 +1470,4 @@ overskrifter_til_menu[demo_navn]()
 from PIL import Image
 
 image = Image.open(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Logo.png')
-<<<<<<< HEAD
 st.sidebar.image(image)
-=======
-st.sidebar.image(image)
->>>>>>> 5b3dc0dc0d41bce9a503cb4dbef74ac077deccc3
