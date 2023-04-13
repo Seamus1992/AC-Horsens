@@ -80,7 +80,8 @@ def GPS_Data():
     import openpyxl as xlsxwriter
     from pandas import DataFrame
     
-    dforiginal = pd.read_csv('samlet gps data.csv')
+    
+    dforiginal = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\samlet gps data.csv')
     dforiginal = dforiginal.loc[dforiginal['Split Name'] =='all']
     
     Højintens_løb = dforiginal['Distance in Speed Zone 4  (km)']
@@ -147,14 +148,14 @@ def Teamsheet():
     import pandas as pd
     import numpy as np
     import os
-    dfbenchmark = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\Benchmarks.xlsx')
+    dfbenchmark = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Benchmarks.xlsx')
     dfårgange = dfbenchmark['Årgang'].drop_duplicates(keep='last')
     option2 = st.selectbox('Vælg årgang',dfårgange)
-    df = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\Team Stats Horsens U15.xlsx')
+    df = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Team Stats Horsens U15.xlsx')
     df = df.iloc[2:]
-    df2 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\Team Stats Horsens U17.xlsx')
+    df2 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Team Stats Horsens U17.xlsx')
     df2 = df2.iloc[2:]
-    df3 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\Team Stats Horsens U19.xlsx')
+    df3 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Team Stats Horsens U19.xlsx')
     df3 = df3.iloc[2:]
     df = df.append(df2).append(df3)
     df = pd.DataFrame(df)
@@ -272,8 +273,8 @@ def Individuelt_dashboard():
     import plotly.graph_objects as go
 
     def U19():
-        U19navne = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\Navne.xlsx')
-        dfU19 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\U19 spillere sæson.xlsx')
+        U19navne = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Navne.xlsx')
+        dfU19 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 spillere sæson.xlsx')
         dfU19 = dfU19[dfU19['Minutes played'] >= 300]
         dfU19['Position'] = dfU19['Position'].astype(str)
         dfU19['Team'] = dfU19['Team'].astype(str)
@@ -418,7 +419,7 @@ def Individuelt_dashboard():
         df_samlet = df_samlet.groupby(['Spillere']).mean(numeric_only=True)
 
         #Start på seneste 5 kampe
-        dfU19s5 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\U19 spillere seneste 5.xlsx')
+        dfU19s5 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 spillere seneste 5.xlsx')
         dfU19s5 = dfU19s5[dfU19s5['Minutes played'] >= 200]
         dfU19s5['Position'] = dfU19s5['Position'].astype(str)
         dfU19s5['Team'] = dfU19s5['Team'].astype(str)
@@ -609,79 +610,7 @@ def Individuelt_dashboard():
         st.write('Rating efter talent-id på position')
         st.plotly_chart(fig,use_container_width=True)
         st.dataframe(df_samletvendtom,use_container_width=True)
-        
-        import gspread
 
-
-        gc = gspread.service_account()
-        sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1aKhqUERGEZ9et5hBFFxHrlANsXrLSWWDkriMgBBJjAA/edit?resourcekey#gid=575235197')
-        ws = sh.worksheet('Samlet')
-        df0 = pd.DataFrame(ws.get_all_records())
-        df0['Tidsstempel'] = df0['Tidsstempel'].str[:-9]
-        df0['Tidsstempel'] = pd.to_datetime(df0['Tidsstempel'], dayfirst=True)
-        #df0['Tidsstempel'] = df0['Tidsstempel'].dt.isocalendar().week
-        #df0.columns = df0.columns.str.replace('Tidsstempel', 'Ugenummer')
-
-
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Ingen udmattelse',1)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Minimal udmattelse',2)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Bedre end normalt',3)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Normalt',4)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Værre end normalt',5)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Meget udmattet',6)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Udmattet - stor træthed',7)
-
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Fremragende',1)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Meget god',2)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Bedre end normalt',3)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Normalt',4)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Værre end normalt',5)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Afbrudt',6)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Forfærdelig - ingen søvn',7)
-
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('10+',1)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('9-10',2)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('8-9',3)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace(8,4)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('7-8',5)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('5-7',6)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('5 eller mindre',7)
-
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Ingen ømhed',1)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Meget lidt ømhed',2)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Bedre end normalt',3)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Normalt',4)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Værre end normalt',5)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Meget øm/stram',6)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Ekstremt øm/stram',7)
-
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Har det storartet - meget afslappet',1)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Har det godt - afslappet',2)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Bedre end normalt',3)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Normalt',4)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Værre end normalt',5)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Stresset',6)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Meget stresset',7)
-
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Meget sund - meget varieret',1)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Sund - varieret',2)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Mest sund - nogenlunde varieret',3)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Varieret',4)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Varieret, men lidt usund',5)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Usund - ikke varieret',6)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Meget usund - slet ikke varieret',7)
-
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Fremragende',1)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Meget godt',2)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Bedre end normalt',3)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Normalt',4)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Værre end normalt',5)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Meget dårligt',6)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Ekstremt dårligt',7)
-        filtreretwellness = df0.loc[df0.loc[df0['Navn'] == option2, 'Navn'].index.values]
-        st.title(option2+' wellness')
-        st.line_chart(filtreretwellness,x='Tidsstempel',y=['Hvor udmattet er du?','Hvordan var din søvn i den seneste uge?','Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?','Bedøm din muskeltræthed','Hvordan har du det psykologisk (mentalt)?','Hvordan har din kost(mad) set ud den seneste uge?','Hvordan har dit humør været efter fodboldtræning den seneste uge?'])
-        
     def U17():
         import pandas as pd
         import openpyxl
@@ -690,8 +619,8 @@ def Individuelt_dashboard():
         import plotly.express as px 
         import time
         import plotly.graph_objects as go
-        U19navne = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\Navne.xlsx')
-        dfU19 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\U17 spillere sæson.xlsx')
+        U19navne = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Navne.xlsx')
+        dfU19 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 spillere sæson.xlsx')
         dfU19 = dfU19[dfU19['Minutes played'] >= 300]
         dfU19['Position'] = dfU19['Position'].astype(str)
         dfU19['Team'] = dfU19['Team'].astype(str)
@@ -836,7 +765,7 @@ def Individuelt_dashboard():
         df_samlet = df_samlet.groupby(['Spillere']).mean(numeric_only=True)
 
         #Start på seneste 5 kampe
-        dfU19s5 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\U17 spillere seneste 5.xlsx')
+        dfU19s5 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 spillere seneste 5.xlsx')
         dfU19s5 = dfU19s5[dfU19s5['Minutes played'] >= 200]
         dfU19s5['Position'] = dfU19s5['Position'].astype(str)
         dfU19s5['Team'] = dfU19s5['Team'].astype(str)
@@ -1028,77 +957,6 @@ def Individuelt_dashboard():
         st.plotly_chart(fig,use_container_width=True)
         st.dataframe(df_samletvendtom,use_container_width=True)
     
-        import gspread
-
-
-        gc = gspread.service_account()
-        sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1aKhqUERGEZ9et5hBFFxHrlANsXrLSWWDkriMgBBJjAA/edit?resourcekey#gid=575235197')
-        ws = sh.worksheet('Samlet')
-        df0 = pd.DataFrame(ws.get_all_records())
-        df0['Tidsstempel'] = df0['Tidsstempel'].str[:-9]
-        df0['Tidsstempel'] = pd.to_datetime(df0['Tidsstempel'], dayfirst=True)
-        #df0['Tidsstempel'] = df0['Tidsstempel'].dt.isocalendar().week
-        #df0.columns = df0.columns.str.replace('Tidsstempel', 'Ugenummer')
-
-
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Ingen udmattelse',1)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Minimal udmattelse',2)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Bedre end normalt',3)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Normalt',4)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Værre end normalt',5)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Meget udmattet',6)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Udmattet - stor træthed',7)
-
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Fremragende',1)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Meget god',2)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Bedre end normalt',3)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Normalt',4)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Værre end normalt',5)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Afbrudt',6)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Forfærdelig - ingen søvn',7)
-
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('10+',1)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('9-10',2)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('8-9',3)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace(8,4)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('7-8',5)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('5-7',6)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('5 eller mindre',7)
-
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Ingen ømhed',1)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Meget lidt ømhed',2)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Bedre end normalt',3)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Normalt',4)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Værre end normalt',5)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Meget øm/stram',6)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Ekstremt øm/stram',7)
-
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Har det storartet - meget afslappet',1)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Har det godt - afslappet',2)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Bedre end normalt',3)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Normalt',4)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Værre end normalt',5)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Stresset',6)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Meget stresset',7)
-
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Meget sund - meget varieret',1)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Sund - varieret',2)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Mest sund - nogenlunde varieret',3)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Varieret',4)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Varieret, men lidt usund',5)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Usund - ikke varieret',6)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Meget usund - slet ikke varieret',7)
-
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Fremragende',1)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Meget godt',2)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Bedre end normalt',3)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Normalt',4)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Værre end normalt',5)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Meget dårligt',6)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Ekstremt dårligt',7)
-        filtreretwellness = df0.loc[df0.loc[df0['Navn'] == option2, 'Navn'].index.values]
-        st.title(option2+' wellness')
-        st.line_chart(filtreretwellness,x='Tidsstempel',y=['Hvor udmattet er du?','Hvordan var din søvn i den seneste uge?','Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?','Bedøm din muskeltræthed','Hvordan har du det psykologisk (mentalt)?','Hvordan har din kost(mad) set ud den seneste uge?','Hvordan har dit humør været efter fodboldtræning den seneste uge?'])
     def U15():
         import pandas as pd
         import openpyxl
@@ -1107,8 +965,8 @@ def Individuelt_dashboard():
         import plotly.express as px 
         import time
         import plotly.graph_objects as go
-        U19navne = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\Navne.xlsx')
-        dfU19 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\U15 spillere sæson.xlsx')
+        U19navne = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Navne.xlsx')
+        dfU19 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 spillere sæson.xlsx')
         dfU19 = dfU19[dfU19['Minutes played'] >= 300]
         dfU19['Position'] = dfU19['Position'].astype(str)
         dfU19['Team'] = dfU19['Team'].astype(str)
@@ -1253,7 +1111,7 @@ def Individuelt_dashboard():
         df_samlet = df_samlet.groupby(['Spillere']).mean(numeric_only=True)
 
         #Start på seneste 5 kampe
-        dfU19s5 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\U15 spillere seneste 5.xlsx')
+        dfU19s5 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 spillere seneste 5.xlsx')
         dfU19s5 = dfU19s5[dfU19s5['Minutes played'] >= 200]
         dfU19s5['Position'] = dfU19s5['Position'].astype(str)
         dfU19s5['Team'] = dfU19s5['Team'].astype(str)
@@ -1445,78 +1303,6 @@ def Individuelt_dashboard():
         st.write('Rating efter talent-id på position')
         st.plotly_chart(fig,use_container_width=True)
         st.dataframe(df_samletvendtom,use_container_width=True)
-            
-        import gspread
-
-
-        gc = gspread.service_account()
-        sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1aKhqUERGEZ9et5hBFFxHrlANsXrLSWWDkriMgBBJjAA/edit?resourcekey#gid=575235197')
-        ws = sh.worksheet('Samlet')
-        df0 = pd.DataFrame(ws.get_all_records())
-        df0['Tidsstempel'] = df0['Tidsstempel'].str[:-9]
-        df0['Tidsstempel'] = pd.to_datetime(df0['Tidsstempel'], dayfirst=True)
-        #df0['Tidsstempel'] = df0['Tidsstempel'].dt.isocalendar().week
-        #df0.columns = df0.columns.str.replace('Tidsstempel', 'Ugenummer')
-
-
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Ingen udmattelse',1)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Minimal udmattelse',2)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Bedre end normalt',3)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Normalt',4)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Værre end normalt',5)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Meget udmattet',6)
-        df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Udmattet - stor træthed',7)
-
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Fremragende',1)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Meget god',2)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Bedre end normalt',3)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Normalt',4)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Værre end normalt',5)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Afbrudt',6)
-        df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Forfærdelig - ingen søvn',7)
-
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('10+',1)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('9-10',2)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('8-9',3)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace(8,4)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('7-8',5)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('5-7',6)
-        df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('5 eller mindre',7)
-
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Ingen ømhed',1)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Meget lidt ømhed',2)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Bedre end normalt',3)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Normalt',4)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Værre end normalt',5)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Meget øm/stram',6)
-        df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Ekstremt øm/stram',7)
-
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Har det storartet - meget afslappet',1)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Har det godt - afslappet',2)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Bedre end normalt',3)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Normalt',4)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Værre end normalt',5)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Stresset',6)
-        df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Meget stresset',7)
-
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Meget sund - meget varieret',1)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Sund - varieret',2)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Mest sund - nogenlunde varieret',3)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Varieret',4)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Varieret, men lidt usund',5)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Usund - ikke varieret',6)
-        df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Meget usund - slet ikke varieret',7)
-
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Fremragende',1)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Meget godt',2)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Bedre end normalt',3)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Normalt',4)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Værre end normalt',5)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Meget dårligt',6)
-        df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Ekstremt dårligt',7)
-        filtreretwellness = df0.loc[df0.loc[df0['Navn'] == option2, 'Navn'].index.values]
-        st.title(option2+' wellness')
-        st.line_chart(filtreretwellness,x='Tidsstempel',y=['Hvor udmattet er du?','Hvordan var din søvn i den seneste uge?','Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?','Bedøm din muskeltræthed','Hvordan har du det psykologisk (mentalt)?','Hvordan har din kost(mad) set ud den seneste uge?','Hvordan har dit humør været efter fodboldtræning den seneste uge?'])
         print('Individuelt dashboard')    
     
     
@@ -1525,27 +1311,6 @@ def Individuelt_dashboard():
     rullemenu = st.selectbox('Vælg årgang',Årgange.keys())
     Årgange[rullemenu]()
 
-def scouting_database():
-    import gspread
-    import pandas as pd
-    import streamlit as st
-
-
-    gc = gspread.service_account()
-    sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1khFGHAR_pHKwhas7yBwz_asga6yFmTzUykUs_-J43VY/edit#gid=282879453')
-    ws = sh.worksheet('Data')
-    df = pd.DataFrame(ws.get_all_records())
-    df['Årgang'] = df['Årgang'].astype(str)
-    årgange = df['Årgang'].drop_duplicates(keep='first')
-    årgange = sorted(årgange)
-    df['Dato'] = df['Tidsstempel'].astype(str)
-    df['Dato'] = df['Dato'].str[:-9]
-    option = st.multiselect('Vælg årgang',årgange)
-    df = df.loc[df.loc[df.Årgang.isin(option),'Årgang'].index]
-    df = df.set_index('Dato')
-    df['Samlet'] = df['Den kampafgørende (nutid)'] + df['Udviklingspotentiale (fremtid)']
-    
-    st.dataframe(df[['Spillernavn','Hold','Årgang','Den kampafgørende (nutid)','Udviklingspotentiale (fremtid)','Samlet']])
 
 def event_data():
     def U15():
@@ -1555,7 +1320,7 @@ def event_data():
         import matplotlib.pyplot as plt
         import plotly.express as px
 
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\U15 eventdata.csv',low_memory=False)
+        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 eventdata.csv',low_memory=False)
 
         kampe = df['label'].drop_duplicates(keep='first')
         option4 = st.multiselect('Vælg kamp (Hvis ingen kamp er valgt, vises alle)',kampe)
@@ -1601,7 +1366,7 @@ def event_data():
         import matplotlib.pyplot as plt
         import plotly.express as px
 
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\U17 eventdata.csv',low_memory=False)
+        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 eventdata.csv',low_memory=False)
 
         kampe = df['label'].drop_duplicates(keep='first')
         option4 = st.multiselect('Vælg kamp (Hvis ingen kamp er valgt, vises alle)',kampe)
@@ -1647,7 +1412,7 @@ def event_data():
         import matplotlib.pyplot as plt
         import plotly.express as px
 
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\U19 eventdata.csv',low_memory=False)
+        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 eventdata.csv',low_memory=False)
 
         kampe = df['label'].drop_duplicates(keep='first')
         option4 = st.multiselect('Vælg kamp (Hvis ingen kamp er valgt, vises alle)',kampe)
@@ -1698,7 +1463,6 @@ overskrifter_til_menu = {
     'GPS Data': GPS_Data,
     'Teamsheet': Teamsheet,
     'Individuelt dashboard': Individuelt_dashboard,
-    'Scouting database' : scouting_database,
     'Event data' : event_data
 }
 demo_navn = st.sidebar.selectbox('Vælg dataform',overskrifter_til_menu.keys())
