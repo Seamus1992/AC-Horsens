@@ -2,7 +2,7 @@ import streamlit as st
 
 def Wellness_data():
     
-    import gspread
+    #import gspread
     import pandas as pd
     import streamlit as st
 
