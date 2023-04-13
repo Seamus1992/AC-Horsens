@@ -14,12 +14,12 @@ combined_csv = pd.concat([pd.read_csv(f) for f in all_filenames])
 df = pd.DataFrame(combined_csv)
 df = df.dropna()
 print ('GPS csv filer kombineret')
-df2 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\GPS spillere.xlsx')
+df2 = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\GPS spillere.xlsx')
 dforiginal = df.merge(df2)
-os.chdir(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app')
-dforiginal.to_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\samlet gps data.xlsx', index=False)
-dforiginal = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\samlet gps data.xlsx')
-writer = pd.ExcelWriter(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\samlet gps data.xlsx', engine='xlsxwriter')
+os.chdir(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens')
+dforiginal.to_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\samlet gps data.xlsx', index=False)
+dforiginal = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\samlet gps data.xlsx')
+writer = pd.ExcelWriter(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\samlet gps data.xlsx', engine='xlsxwriter')
 dforiginal.to_excel(writer,sheet_name='Sheet1', index=None, header=True)
 
 
@@ -35,11 +35,11 @@ fmt = workbook.add_format(formatdict)
 worksheet.set_column('F:G', None, fmt)
 
 writer.close()
-dforiginal = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\samlet gps data.xlsx',decimal=',')
+dforiginal = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\samlet gps data.xlsx',decimal=',')
 Ugenummer = dforiginal['Date'].apply(lambda x: x.isocalendar()[1])
 dforiginal.insert(loc = 48, column = 'Ugenummer', value= Ugenummer)
-dforiginal.to_csv(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\samlet gps data.csv', index=False)
-os.remove(r'C:\Users\SéamusPeareBartholdy\Desktop\Data app\samlet gps data.xlsx')
+dforiginal.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\samlet gps data.csv', index=False)
+os.remove(r'C:C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsenssamlet gps data.xlsx')
 print('GPS færdig')
 
 #Hent eventdata
@@ -318,7 +318,7 @@ kampdetaljer = json_normalize(json_files)
 kampdetaljer = kampdetaljer[['wyId','label','date']]
 kampdetaljer = kampdetaljer.rename(columns={'wyId':'matchId'})
 df1 = kampdetaljer.merge(df)
-df1.to_csv('U15 eventdata.csv')
+df1.to_csv('C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 eventdata.csv')
 print('U15 Data hentet')
 
 from azure.storage.fileshare import ShareServiceClient
@@ -596,7 +596,7 @@ kampdetaljer = json_normalize(json_files)
 kampdetaljer = kampdetaljer[['wyId','label','date']]
 kampdetaljer = kampdetaljer.rename(columns={'wyId':'matchId'})
 df1 = kampdetaljer.merge(df)
-df1.to_csv('U17 eventdata.csv')
+df1.to_csv('C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 eventdata.csv')
 print(' U17 Data hentet')
 
 from azure.storage.fileshare import ShareServiceClient
@@ -874,5 +874,5 @@ kampdetaljer = json_normalize(json_files)
 kampdetaljer = kampdetaljer[['wyId','label','date']]
 kampdetaljer = kampdetaljer.rename(columns={'wyId':'matchId'})
 df1 = kampdetaljer.merge(df)
-df1.to_csv('U19 eventdata.csv')
+df1.to_csv('C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 eventdata.csv')
 print('U19 Data hentet')
