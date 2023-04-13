@@ -81,7 +81,7 @@ def GPS_Data():
     from pandas import DataFrame
     
     
-    dforiginal = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\samlet gps data.csv')
+    dforiginal = pd.read_csv('samlet gps data.csv')
     dforiginal = dforiginal.loc[dforiginal['Split Name'] =='all']
     
     Højintens_løb = dforiginal['Distance in Speed Zone 4  (km)']
