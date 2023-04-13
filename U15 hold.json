@@ -1,0 +1,242 @@
+{
+  "teams": [
+    {
+      "wyId": 66870,
+      "name": "Horsens U15",
+      "officialName": "AC Horsens Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "youth",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-12650_120x120.png"
+    },
+    {
+      "wyId": 65133,
+      "name": "Esbjerg U15",
+      "officialName": "Esbjerg fB Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "default",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-10957_120x120.png"
+    },
+    {
+      "wyId": 65132,
+      "name": "København U15",
+      "officialName": "FC København Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "default",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-10956_120x120.png"
+    },
+    {
+      "wyId": 65130,
+      "name": "Silkeborg IF U15",
+      "officialName": "Silkeborg IF Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "default",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-10954_120x120.png"
+    },
+    {
+      "wyId": 65129,
+      "name": "SønderjyskE U15",
+      "officialName": "SønderjyskE Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "default",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-10953_120x120.png"
+    },
+    {
+      "wyId": 65128,
+      "name": "AaB U15",
+      "officialName": "Aalborg BK Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "default",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-10952_120x120.png"
+    },
+    {
+      "wyId": 65127,
+      "name": "OB U15",
+      "officialName": "Odense BK Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "default",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-10951_120x120.png"
+    },
+    {
+      "wyId": 65126,
+      "name": "Vejle U15",
+      "officialName": "Vejle Boldklub Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "default",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-10950_120x120.png"
+    },
+    {
+      "wyId": 65125,
+      "name": "Randers U15",
+      "officialName": "Randers FC Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "default",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-10949_120x120.png"
+    },
+    {
+      "wyId": 65124,
+      "name": "Farum Boldklub U15",
+      "officialName": "Farum Boldklub Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "default",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-10948_120x120.png"
+    },
+    {
+      "wyId": 65122,
+      "name": "Midtjylland U15",
+      "officialName": "FC Midtjylland Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "default",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-10946_120x120.png"
+    },
+    {
+      "wyId": 65121,
+      "name": "AGF U15",
+      "officialName": "AGF Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "default",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-10945_120x120.png"
+    },
+    {
+      "wyId": 64359,
+      "name": "Lyngby U15",
+      "officialName": "Lyngby Boldklub Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "youth",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-10201_120x120.png"
+    },
+    {
+      "wyId": 22392,
+      "name": "Brøndby IF U15",
+      "officialName": "Brøndby IF Under 15",
+      "city": "",
+      "area": {
+        "id": 208,
+        "alpha2code": "DK",
+        "alpha3code": "DNK",
+        "name": "Denmark"
+      },
+      "type": "club",
+      "category": "default",
+      "gender": "male",
+      "children": null,
+      "imageDataURL": "https://cdn5.wyscout.com/photos/team/public/g-2123_120x120.png"
+    }
+  ]
+}
