@@ -27,24 +27,25 @@ dfsorteredekampe = dfsorteredekampe.rename_axis('Parameter').astype(str)
 dfsorteredekampe = dfsorteredekampe.transpose()
 # select the columns that end with "shots", "xg", or "dribbles" and group by "AC Horsens"
 # Extract columns that end with 'shots', 'xg', or 'dribbles'
+goals_cols = [col for col in dfsorteredekampe.columns if col.endswith('.goals')]
 shots_cols = [col for col in dfsorteredekampe.columns if col.endswith('.shots')]
 xg_cols = [col for col in dfsorteredekampe.columns if col.endswith('.xg')]
-dribbles_cols = [col for col in dfsorteredekampe.columns if col.endswith('.dribbles')]
-goals_cols = [col for col in dfsorteredekampe.columns if col.endswith('.goals')]
+duels_cols = [col for col in dfsorteredekampe.columns if col.endswith('.duels')]
+duelswon_cols = [col for col in dfsorteredekampe.columns if col.endswith('.duelsSuccessful')]
 possession_cols = [col for col in dfsorteredekampe.columns if col.endswith('.possessionPercent')]
-
 # Create a new dataframe with the average values for each team
 team_data = {}
-for team in set([col.split('.')[0] for col in shots_cols]):
-    team_shots = dfsorteredekampe[[col for col in shots_cols if col.startswith(team)]].mean(axis=1)
-    team_xg = dfsorteredekampe[[col for col in xg_cols if col.startswith(team)]].mean(axis=1)
-    team_dribbles = dfsorteredekampe[[col for col in dribbles_cols if col.startswith(team)]].mean(axis=1)
-    team_goals = dfsorteredekampe[[col for col in goals_cols if col.startswith(team)]].mean(axis=1)
-    team_possession = dfsorteredekampe[[col for col in possession_cols if col.startswith(team)]].mean(axis=1)
-    team_data[team] = pd.concat([team_shots, team_xg, team_dribbles,team_goals,team_possession], axis=1)
+for team in set([col.split('.')[1] for col in shots_cols]):
+    team_goals = dfsorteredekampe[[col for col in goals_cols if(team) in col]].mean(axis=1)    
+    team_shots = dfsorteredekampe[[col for col in shots_cols if(team) in col]].mean(axis=1)
+    team_xg = dfsorteredekampe[[col for col in xg_cols if (team) in col]].mean(axis=1)
+    team_duels = dfsorteredekampe[[col for col in duels_cols if (team) in col]].mean(axis=1)
+    team_duelswon = dfsorteredekampe[[col for col in duelswon_cols if (team) in col]].mean(axis=1)
+    team_possession = dfsorteredekampe[[col for col in possession_cols if (team) in col]].mean(axis=1)
+    team_data[team] = pd.concat([team_goals,team_shots, team_xg, team_duels,team_duelswon,team_possession], axis=1)
     
 team_df = pd.concat(team_data, axis=0, keys=team_data.keys())
-team_df.columns = ['Shots', 'Xg', 'Dribbles','Goals','Possession %']
+team_df.columns = ['Goals','Shots', 'Xg', 'Duels','Duels won','Possession %']
 team_df = team_df.groupby(level=0).mean()
 st.dataframe(team_df)
 st.dataframe(dfsorteredekampe)
