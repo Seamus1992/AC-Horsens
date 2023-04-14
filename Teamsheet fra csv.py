@@ -47,5 +47,6 @@ for team in set([col.split('.')[1] for col in shots_cols]):
 team_df = pd.concat(team_data, axis=0, keys=team_data.keys())
 team_df.columns = ['Goals','Shots', 'Xg', 'Duels','Duels won','Possession %']
 team_df = team_df.groupby(level=0).mean()
+st.write('Generelle stats')
 st.dataframe(team_df)
 st.dataframe(dfsorteredekampe)
