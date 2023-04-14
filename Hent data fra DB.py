@@ -39,7 +39,7 @@ dforiginal = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-
 Ugenummer = dforiginal['Date'].apply(lambda x: x.isocalendar()[1])
 dforiginal.insert(loc = 48, column = 'Ugenummer', value= Ugenummer)
 dforiginal.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\samlet gps data.csv', index=False)
-os.remove(r'C:C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsenssamlet gps data.xlsx')
+os.remove(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\samlet gps data.xlsx')
 print('GPS færdig')
 
 #Hent eventdata
@@ -318,7 +318,7 @@ kampdetaljer = json_normalize(json_files)
 kampdetaljer = kampdetaljer[['wyId','label','date']]
 kampdetaljer = kampdetaljer.rename(columns={'wyId':'matchId'})
 df1 = kampdetaljer.merge(df)
-df1.to_csv('C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 eventdata.csv')
+df1.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 eventdata.csv')
 print('U15 Data hentet')
 
 from azure.storage.fileshare import ShareServiceClient
@@ -596,7 +596,7 @@ kampdetaljer = json_normalize(json_files)
 kampdetaljer = kampdetaljer[['wyId','label','date']]
 kampdetaljer = kampdetaljer.rename(columns={'wyId':'matchId'})
 df1 = kampdetaljer.merge(df)
-df1.to_csv('C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 eventdata.csv')
+df1.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 eventdata.csv')
 print(' U17 Data hentet')
 
 from azure.storage.fileshare import ShareServiceClient
@@ -874,5 +874,80 @@ kampdetaljer = json_normalize(json_files)
 kampdetaljer = kampdetaljer[['wyId','label','date']]
 kampdetaljer = kampdetaljer.rename(columns={'wyId':'matchId'})
 df1 = kampdetaljer.merge(df)
-df1.to_csv('C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 eventdata.csv')
+df1.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 eventdata.csv')
 print('U19 Data hentet')
+
+    
+import gspread
+import pandas as pd
+import streamlit as st
+
+
+gc = gspread.service_account()
+sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1aKhqUERGEZ9et5hBFFxHrlANsXrLSWWDkriMgBBJjAA/edit?resourcekey#gid=575235197')
+ws = sh.worksheet('Samlet')
+df0 = pd.DataFrame(ws.get_all_records())
+df0['Tidsstempel'] = df0['Tidsstempel'].str[:-9]
+df0['Tidsstempel'] = pd.to_datetime(df0['Tidsstempel'], dayfirst=True)
+df0['Tidsstempel'] = df0['Tidsstempel'].dt.isocalendar().week
+df0.columns = df0.columns.str.replace('Tidsstempel', 'Ugenummer')
+
+
+df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Ingen udmattelse',1)
+df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Minimal udmattelse',2)
+df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Bedre end normalt',3)
+df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Normalt',4)
+df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Værre end normalt',5)
+df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Meget udmattet',6)
+df0['Hvor udmattet er du?'] = df0['Hvor udmattet er du?'].replace('Udmattet - stor træthed',7)
+
+df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Fremragende',1)
+df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Meget god',2)
+df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Bedre end normalt',3)
+df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Normalt',4)
+df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Værre end normalt',5)
+df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Afbrudt',6)
+df0['Hvordan var din søvn i den seneste uge?'] = df0['Hvordan var din søvn i den seneste uge?'].replace('Forfærdelig - ingen søvn',7)
+
+df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('10+',1)
+df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('9-10',2)
+df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('8-9',3)
+df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace(8,4)
+df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('7-8',5)
+df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('5-7',6)
+df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'] = df0['Hvor mange timer sov du i gennemsnit pr. nat i den seneste uge?'].replace('5 eller mindre',7)
+
+df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Ingen ømhed',1)
+df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Meget lidt ømhed',2)
+df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Bedre end normalt',3)
+df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Normalt',4)
+df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Værre end normalt',5)
+df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Meget øm/stram',6)
+df0['Bedøm din muskeltræthed'] = df0['Bedøm din muskeltræthed'].replace('Ekstremt øm/stram',7)
+
+df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Har det storartet - meget afslappet',1)
+df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Har det godt - afslappet',2)
+df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Bedre end normalt',3)
+df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Normalt',4)
+df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Værre end normalt',5)
+df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Stresset',6)
+df0['Hvordan har du det psykologisk (mentalt)?'] = df0['Hvordan har du det psykologisk (mentalt)?'].replace('Meget stresset',7)
+
+df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Meget sund - meget varieret',1)
+df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Sund - varieret',2)
+df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Mest sund - nogenlunde varieret',3)
+df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Varieret',4)
+df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Varieret, men lidt usund',5)
+df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Usund - ikke varieret',6)
+df0['Hvordan har din kost(mad) set ud den seneste uge?'] = df0['Hvordan har din kost(mad) set ud den seneste uge?'].replace('Meget usund - slet ikke varieret',7)
+
+df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Fremragende',1)
+df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Meget godt',2)
+df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Bedre end normalt',3)
+df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Normalt',4)
+df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Værre end normalt',5)
+df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Meget dårligt',6)
+df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'].replace('Ekstremt dårligt',7)
+
+df0['Ugenummer'] = pd.to_numeric(df0['Ugenummer'], errors="coerce").fillna(0).astype('int64')
+df0.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\samlet wellness.csv')
