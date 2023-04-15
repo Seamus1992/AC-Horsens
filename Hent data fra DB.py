@@ -951,3 +951,4 @@ df0['Hvordan har dit humør været efter fodboldtræning den seneste uge?'] = df
 
 df0['Ugenummer'] = pd.to_numeric(df0['Ugenummer'], errors="coerce").fillna(0).astype('int64')
 df0.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\samlet wellness.csv')
+print('Wellness data hentet')
