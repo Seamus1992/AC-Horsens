@@ -40,7 +40,7 @@ def Wellness_data():
     slice_ = pd.IndexSlice[df_.index, df_.columns]
 
     df1 = df.style.set_properties(**{'background-color': 'red'}, subset=slice_)
-    st.write('Skalaen er fra 1 til 7, ved et 5-tal bliver hele rækken gul, ved et 6-tal bliver hele rækken rød')
+    st.write('Skalaen er fra 1 til 7, ved et 5-tal bliver hele rækken gul, ved et 6-tal eller derover bliver hele rækken rød')
     st.write('Wellness Data (Jo lavere jo bedre)')
     st.dataframe(df1)
     #with pd.ExcelWriter('Wellness udtræk.xlsx', engine="openpyxl", mode="a",if_sheet_exists='replace') as writer:
