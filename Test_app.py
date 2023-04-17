@@ -40,12 +40,13 @@ def Wellness_data():
     slice_ = pd.IndexSlice[df_.index, df_.columns]
 
     df1 = df.style.set_properties(**{'background-color': 'red'}, subset=slice_)
-    st.write('Wellness Data')
+    st.write('Skalaen er fra 1 til 7, ved et 5-tal bliver hele rækken gul, ved et 6-tal bliver hele rækken rød')
+    st.write('Wellness Data (Jo lavere jo bedre)')
     st.dataframe(df1)
     #with pd.ExcelWriter('Wellness udtræk.xlsx', engine="openpyxl", mode="a",if_sheet_exists='replace') as writer:
         #df.to_excel(writer,'Rådata', index=True)
 
-    st.write('Flow Data')
+    st.write('Flow Data(Jo lavere jo bedre)')
 
     df_flow = df0[['Navn','Ugenummer','Årgang','Jeg følte mig tilpas udfordret under træning i den seneste uge','Jeg oplevede at tanker (og handlinger) var rettet mod aktiviteten i den seneste uge','Min tidsfornemmelse forsvandt','Jeg havde ingen problemer med at koncentrere mig','Jeg var helt klar i hovedet','Jeg var helt optaget af aktiviteten','Mine tanker blev af sig selv knyttet til aktiviteten','Jeg var ikke i tvivl om hvad jeg skulle gøre','Jeg oplevede at jeg havde kontrol']]
 
@@ -135,9 +136,9 @@ def GPS_Data():
     afvigelser['Hårde Accelerationer'] = df['Hårde Accelerationer'] / df_GPSgennemsnit['Hårde Accelerationer']
     afvigelser['Hårde deccelerationer'] = df['Hårde deccelerationer'] / df_GPSgennemsnit['Hårde deccelerationer']
     afvigelser['Tid med høj puls'] = df['Tid med høj puls'] / df_GPSgennemsnit['Tid med høj puls']
-    st.write('Afvigelser for den valgte spiller i forhold til truppens gennemsnit')
+    st.write('Afvigelser for den valgte spiller i forhold til truppens gennemsnit (1 = trupgennemsnittet for dagen)')
     st.line_chart(afvigelser,y=['Sprint','Distance (km)','Top Speed (km/h)','Højintens løb','Hårde Accelerationer','Hårde deccelerationer','Tid med høj puls'],)
-    st.write('Tabel for afvigelser')
+    st.write('Tabel for afvigelser (1 = trupgennemsnittet for dagen)')
     st.dataframe(afvigelser)
     st.write('Absolutte tal for den valgte spiller')
     st.dataframe(df)
@@ -236,6 +237,7 @@ def Teamsheet():
     fig.append_trace(trace8, row=2, col=4)
     
     st.title('Offensive parametre')
+    st.write('Skalaen går fra sidste års gennemsnit til sidste års ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
     st.plotly_chart(fig,use_container_width=True)
     
     trace9 = go.Indicator(mode="gauge+number",    value=dfsammenligning['xG against'][1],domain={'row' : 1, 'column' : 1},title={'text': "xG against"},gauge={'axis':{'range':[dfsammenligning['xG against'][2],dfsammenligning['xG against'][0]]}})
@@ -260,7 +262,8 @@ def Teamsheet():
     fig1.append_trace(trace14, row=2, col=2)
     fig1.append_trace(trace15, row=2, col=3)
     fig1.append_trace(trace16, row=2, col=4)
-    st.title('Defensive parametre',)
+    st.title('Defensive parametre')
+    st.write('Skalaen går fra sidste års gennemsnit til sidste års ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
     st.plotly_chart(fig1,use_container_width=True)
     print('teamsheet')
 def Individuelt_dashboard():
