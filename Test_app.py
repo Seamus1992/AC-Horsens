@@ -610,7 +610,7 @@ def Individuelt_dashboard():
         )
         fig.update_layout(polar=dict(bgcolor = '#1e2130'))
         st.title(option2+' fodbold')
-        st.write('Rating efter talent-id på position')
+        st.write('Rating efter talent-id på position, skalaen er 1-5, 5 er hvis spilleren er blandt de 20% bedste i ligaen på den pågældende stat')
         st.plotly_chart(fig,use_container_width=True)
         st.dataframe(df_samletvendtom,use_container_width=True)
 
@@ -956,7 +956,7 @@ def Individuelt_dashboard():
         )
         fig.update_layout(polar=dict(bgcolor = '#1e2130'))
         st.title(option2+' fodbold')
-        st.write('Rating efter talent-id på position')
+        st.write('Rating efter talent-id på position, skalaen er 1-5, 5 er hvis spilleren er blandt de 20% bedste i ligaen på den pågældende stat')        
         st.plotly_chart(fig,use_container_width=True)
         st.dataframe(df_samletvendtom,use_container_width=True)
     
@@ -1303,7 +1303,7 @@ def Individuelt_dashboard():
         )
         fig.update_layout(polar=dict(bgcolor = '#1e2130'))
         st.title(option2+' fodbold')
-        st.write('Rating efter talent-id på position')
+        st.write('Rating efter talent-id på position, skalaen er 1-5, 5 er hvis spilleren er blandt de 20% bedste i ligaen på den pågældende stat')        
         st.plotly_chart(fig,use_container_width=True)
         st.dataframe(df_samletvendtom,use_container_width=True)
         print('Individuelt dashboard')    
