@@ -59,8 +59,12 @@ forward_passes_cols = [col for col in dfsorteredekampe.columns if col.endswith('
 forward_passes_successful_cols = [col for col in dfsorteredekampe.columns if col.endswith('.forwardPassesSuccessful')]
 passes_cols = [col for col in dfsorteredekampe.columns if col.endswith('.passes')]
 touches_in_box_cols = [col for col in dfsorteredekampe.columns if col.endswith('.touchesInBox')]
-duelswon_cols = [col for col in dfsorteredekampe.columns if col.endswith('.duelsSuccessful')]
-possession_cols = [col for col in dfsorteredekampe.columns if col.endswith('.possessionPercent')]
+xg_cols = [col for col in dfsorteredekampe.columns if col.endswith('.xg')]
+xgpershot_cols = [col for col in dfsorteredekampe.columns if col.endswith('.xgPerShot')]
+dzshots_cols = [col for col in dfsorteredekampe.columns if col.endswith('.shotsFromDangerZone')]
+possessionantal_cols = [col for col in dfsorteredekampe.columns if col.endswith('.possessionNumber')]
+possessionanmodstandershalvdel_cols = [col for col in dfsorteredekampe.columns if col.endswith('.reachingOpponentHalf')]
+possessionanmodstandersfelt_cols = [col for col in dfsorteredekampe.columns if col.endswith('.reachingOpponentBox')]
 ppda_cols = [col for col in dfsorteredekampe.columns if col.endswith('.ppda')]
 
 # Create a new dataframe with the average values for each team
@@ -70,17 +74,34 @@ for team in set([col.split('.')[1] for col in shots_cols]):
     team_forward_passes_successful = dfsorteredekampe[[col for col in forward_passes_successful_cols if(team) in col]].mean(axis=1)
     team_passes = dfsorteredekampe[[col for col in passes_cols if (team) in col]].mean(axis=1)
     team_touches_in_box = dfsorteredekampe[[col for col in touches_in_box_cols if (team) in col]].mean(axis=1)
-    team_duelswon = dfsorteredekampe[[col for col in duelswon_cols if (team) in col]].mean(axis=1)
-    team_possession = dfsorteredekampe[[col for col in possession_cols if (team) in col]].mean(axis=1)
+    team_xg = dfsorteredekampe[[col for col in xg_cols if (team) in col]].mean(axis=1)
+    team_xgpershot = dfsorteredekampe[[col for col in xgpershot_cols if (team) in col]].mean(axis=1)
+    team_dzshots = dfsorteredekampe[[col for col in dzshots_cols if (team) in col]].mean(axis=1)
+    team_possessionantal = dfsorteredekampe[[col for col in possessionantal_cols if (team) in col]].mean(axis=1)
+    team_possessionmodstandershalvdel = dfsorteredekampe[[col for col in possessionanmodstandershalvdel_cols if (team) in col]].mean(axis=1)
+    team_possessionmodstandersfelt = dfsorteredekampe[[col for col in possessionanmodstandersfelt_cols if (team) in col]].mean(axis=1)
     team_ppda = dfsorteredekampe[[col for col in ppda_cols if (team) in col]].mean(axis=1)
 
-    team_data_målbare[team] = pd.concat([team_forward_passes,team_forward_passes_successful, team_passes, team_touches_in_box,team_duelswon,team_possession,team_ppda], axis=1)
+    team_data_målbare[team] = pd.concat([team_forward_passes,team_forward_passes_successful, team_passes, team_touches_in_box,team_xg,team_xgpershot,team_dzshots,team_possessionantal,team_possessionmodstandershalvdel,team_possessionmodstandersfelt,team_ppda], axis=1)
     
 team_df_målbare = pd.concat(team_data_målbare, axis=0, keys=team_data_målbare.keys())
-team_df_målbare.columns = ['Forward passes','Forward passes successful', 'Passes', 'Touches in box','Duels won','Possession %','PPDA']
+team_df_målbare.columns = ['Forward passes','Forward passes successful', 'Passes', 'Touches in box','xG','xG/shot','Shots from dangerzone','Antal possessions','Antal possessions der når modstanders halvdel','Antal possessions der når modstanders felt','PPDA']
 team_df_målbare = team_df_målbare.groupby(level=0).mean()
 team_df_målbare['Forward pass %'] = (team_df_målbare['Forward passes successful']/team_df_målbare['Forward passes'])*100
 team_df_målbare['Forward pass share'] = (team_df_målbare['Forward passes']/team_df_målbare['Passes'])*100
 team_df_målbare['Forward pass score'] = team_df_målbare[['Forward pass share','Forward pass %']].mean(axis=1)
+team_df_målbare['Possession to opp box'] = team_df_målbare['Antal possessions der når modstanders felt']
+team_df_målbare['Possession to opp half %'] = (team_df_målbare['Antal possessions der når modstanders halvdel']/team_df_målbare['Antal possessions'])*100
+team_df_målbare['Possession to opp box %'] = (team_df_målbare['Antal possessions der når modstanders felt']/team_df_målbare['Antal possessions'])*100
+team_df_målbare = team_df_målbare[['Forward pass score','Touches in box','xG','xG/shot','Shots from dangerzone','Possession to opp box','Possession to opp half %','Possession to opp box %','PPDA']]
+team_df_målbare = team_df_målbare.round(decimals=3)
+hold = 'Horsens U15'
+team_df_målbare_andre_hold = team_df_målbare.drop(hold)
+team_df_målbare['xG against'] = team_df_målbare_andre_hold['xG'].mean()
+team_df_målbare['Shots from dangerzone against'] = team_df_målbare_andre_hold['Shots from dangerzone'].mean()
+team_df_målbare['Touches in box against'] = team_df_målbare_andre_hold['Touches in box'].mean()
+
+mask = team_df_målbare.index == 'Horsens U15'
+team_df_målbare = team_df_målbare[mask]
 st.dataframe(team_df_målbare)
 st.dataframe(dfsorteredekampe)
