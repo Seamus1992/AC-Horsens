@@ -25,8 +25,8 @@ dfsorteredekampe = pd.concat([dfoverskrifter,dfsorteredekampe])
 dfsorteredekampe = dfsorteredekampe.dropna(how='all')
 dfsorteredekampe = dfsorteredekampe.rename_axis('Parameter').astype(str)
 dfsorteredekampe = dfsorteredekampe.transpose()
-# select the columns that end with "shots", "xg", or "dribbles" and group by "AC Horsens"
-# Extract columns that end with 'shots', 'xg', or 'dribbles'
+
+
 goals_cols = [col for col in dfsorteredekampe.columns if col.endswith('.goals')]
 shots_cols = [col for col in dfsorteredekampe.columns if col.endswith('.shots')]
 xg_cols = [col for col in dfsorteredekampe.columns if col.endswith('.xg')]
@@ -51,6 +51,36 @@ for team in set([col.split('.')[1] for col in shots_cols]):
 team_df = pd.concat(team_data, axis=0, keys=team_data.keys())
 team_df.columns = ['Goals','Shots', 'Xg', 'Duels','Duels won','Possession %','PPDA']
 team_df = team_df.groupby(level=0).mean()
+
 st.write('Generelle stats')
 st.dataframe(team_df)
+
+forward_passes_cols = [col for col in dfsorteredekampe.columns if col.endswith('.forwardPasses')]
+forward_passes_successful_cols = [col for col in dfsorteredekampe.columns if col.endswith('.forwardPassesSuccessful')]
+passes_cols = [col for col in dfsorteredekampe.columns if col.endswith('.passes')]
+touches_in_box_cols = [col for col in dfsorteredekampe.columns if col.endswith('.touchesInBox')]
+duelswon_cols = [col for col in dfsorteredekampe.columns if col.endswith('.duelsSuccessful')]
+possession_cols = [col for col in dfsorteredekampe.columns if col.endswith('.possessionPercent')]
+ppda_cols = [col for col in dfsorteredekampe.columns if col.endswith('.ppda')]
+
+# Create a new dataframe with the average values for each team
+team_data_målbare = {}
+for team in set([col.split('.')[1] for col in shots_cols]):
+    team_forward_passes = dfsorteredekampe[[col for col in forward_passes_cols if(team) in col]].mean(axis=1)    
+    team_forward_passes_successful = dfsorteredekampe[[col for col in forward_passes_successful_cols if(team) in col]].mean(axis=1)
+    team_passes = dfsorteredekampe[[col for col in passes_cols if (team) in col]].mean(axis=1)
+    team_touches_in_box = dfsorteredekampe[[col for col in touches_in_box_cols if (team) in col]].mean(axis=1)
+    team_duelswon = dfsorteredekampe[[col for col in duelswon_cols if (team) in col]].mean(axis=1)
+    team_possession = dfsorteredekampe[[col for col in possession_cols if (team) in col]].mean(axis=1)
+    team_ppda = dfsorteredekampe[[col for col in ppda_cols if (team) in col]].mean(axis=1)
+
+    team_data_målbare[team] = pd.concat([team_forward_passes,team_forward_passes_successful, team_passes, team_touches_in_box,team_duelswon,team_possession,team_ppda], axis=1)
+    
+team_df_målbare = pd.concat(team_data_målbare, axis=0, keys=team_data_målbare.keys())
+team_df_målbare.columns = ['Forward passes','Forward passes successful', 'Passes', 'Touches in box','Duels won','Possession %','PPDA']
+team_df_målbare = team_df_målbare.groupby(level=0).mean()
+team_df_målbare['Forward pass %'] = (team_df_målbare['Forward passes successful']/team_df_målbare['Forward passes'])*100
+team_df_målbare['Forward pass share'] = (team_df_målbare['Forward passes']/team_df_målbare['Passes'])*100
+team_df_målbare['Forward pass score'] = team_df_målbare[['Forward pass share','Forward pass %']].mean(axis=1)
+st.dataframe(team_df_målbare)
 st.dataframe(dfsorteredekampe)
