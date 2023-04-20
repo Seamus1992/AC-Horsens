@@ -153,7 +153,7 @@ def Teamsheet():
         import streamlit as st
         import numpy as np
         from datetime import datetime
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet egne kampe U15.csv')
+        df = pd.read_csv('Teamsheet egne kampe U15.csv')
         kampe = df['label']
         option = st.multiselect('Vælg kamp (Hvis ingen kamp er valgt, vises gennemsnit for alle)',kampe)
         if len(option) > 0:
@@ -268,7 +268,7 @@ def Teamsheet():
         import numpy as np
         from datetime import datetime
 
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet alle kampe U15.csv')
+        df = pd.read_csv('Teamsheet alle kampe U15.csv')
 
         dfsorteredeallekampe = df.iloc[: , 1:]
         dfsorteredeallekampe['date'] = dfsorteredeallekampe['date'].astype(str)
@@ -371,7 +371,7 @@ def Teamsheet():
         team_df_målbare_alle = team_df_målbare_alle[mask]
 
 
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet alle kampe U15 sidste sæson.csv')
+        df = pd.read_csv('Teamsheet alle kampe U15 sidste sæson.csv')
 
         dfsorteredekampesidstesæson = df.iloc[: , 1:]
         dfsorteredekampesidstesæson['date'] = dfsorteredekampesidstesæson['date'].astype(str)
@@ -539,7 +539,7 @@ def Teamsheet():
         import streamlit as st
         import numpy as np
         from datetime import datetime
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet egne kampe U17.csv')
+        df = pd.read_csv('Teamsheet egne kampe U17.csv')
         kampe = df['label']
         option = st.multiselect('Vælg kamp (Hvis ingen kamp er valgt, vises gennemsnit for alle)',kampe)
         if len(option) > 0:
@@ -654,7 +654,7 @@ def Teamsheet():
         import numpy as np
         from datetime import datetime
 
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet alle kampe U17.csv')
+        df = pd.read_csv('Teamsheet alle kampe U17.csv')
 
         dfsorteredeallekampe = df.iloc[: , 1:]
         dfsorteredeallekampe['date'] = dfsorteredeallekampe['date'].astype(str)
@@ -757,7 +757,7 @@ def Teamsheet():
         team_df_målbare_alle = team_df_målbare_alle[mask]
 
 
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet alle kampe U17 sidste sæson.csv')
+        df = pd.read_csv('Teamsheet alle kampe U17 sidste sæson.csv')
 
         dfsorteredekampesidstesæson = df.iloc[: , 1:]
         dfsorteredekampesidstesæson['date'] = dfsorteredekampesidstesæson['date'].astype(str)
@@ -924,7 +924,7 @@ def Teamsheet():
         import streamlit as st
         import numpy as np
         from datetime import datetime
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet egne kampe U19.csv')
+        df = pd.read_csv('Teamsheet egne kampe U19.csv')
         kampe = df['label']
         option = st.multiselect('Vælg kamp (Hvis ingen kamp er valgt, vises gennemsnit for alle)',kampe)
         if len(option) > 0:
@@ -1039,7 +1039,7 @@ def Teamsheet():
         import numpy as np
         from datetime import datetime
 
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet alle kampe U19.csv')
+        df = pd.read_csv('Teamsheet alle kampe U19.csv')
 
         dfsorteredeallekampe = df.iloc[: , 1:]
         dfsorteredeallekampe['date'] = dfsorteredeallekampe['date'].astype(str)
@@ -1142,7 +1142,7 @@ def Teamsheet():
         team_df_målbare_alle = team_df_målbare_alle[mask]
 
 
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet alle kampe U19 sidste sæson.csv')
+        df = pd.read_csv('Teamsheet alle kampe U19 sidste sæson.csv')
 
         dfsorteredekampesidstesæson = df.iloc[: , 1:]
         dfsorteredekampesidstesæson['date'] = dfsorteredekampesidstesæson['date'].astype(str)
