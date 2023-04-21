@@ -66,7 +66,9 @@ def Wellness_data():
     eftertræning.set_index('Tidsstempel', inplace=True)
     eftertræning.sort_index(ascending=False, inplace=True)
     eftertræning = eftertræning.astype(int,errors='ignore')
+    eftertræning = eftertræning.reset_index(drop=True)
     eftertræning = eftertræning.style.apply(color_row, axis=1, subset=pd.IndexSlice[:])
+
 
     # Display the styled dataframe
     st.write('Før træning')
