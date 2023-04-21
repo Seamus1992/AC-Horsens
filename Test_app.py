@@ -53,6 +53,7 @@ def Wellness_data():
         return ['background-color: %s' % color] * row.size
     førtræning.set_index('Tidsstempel', inplace=True)
     førtræning.sort_index(ascending=False, inplace=True)
+    førtræning = førtræning.loc[~førtræning.index.duplicated(keep='first')]
     førtræning = førtræning.astype(int,errors='ignore')
     førtræning = førtræning.style.apply(color_row, axis=1, subset=pd.IndexSlice[:])
 
@@ -65,9 +66,9 @@ def Wellness_data():
         return ['background-color: %s' % color] * row.size
     eftertræning.set_index('Tidsstempel', inplace=True)
     eftertræning.sort_index(ascending=False, inplace=True)
+    eftertræning = eftertræning.loc[~eftertræning.index.duplicated(keep='first')]
     eftertræning = eftertræning.astype(int,errors='ignore')
     eftertræning = eftertræning.style.apply(color_row, axis=1, subset=pd.IndexSlice[:])
-
 
 
     # Display the styled dataframe
