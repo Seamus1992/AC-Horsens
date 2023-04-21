@@ -63,10 +63,10 @@ def Wellness_data():
         elif 'Hvor udmattet er du?' in row and row['Hvor udmattet er du?'] == 5 or 'Bedøm din muskelømhed' in row and row['Bedøm din muskelømhed'] == 5 or 'Hvordan har du det mentalt?' in row and row['Hvordan har du det mentalt?'] == 5 or ('Jeg følte mig tilpas udfordret under træning/kamp' in row and row['Jeg følte mig tilpas udfordret under træning/kamp'] == 5) or ('Min tidsfornemmelse forsvandt under træning/kamp' in row and row['Min tidsfornemmelse forsvandt under træning/kamp'] == 5 or 'Jeg oplevede at tanker og handlinger var rettet mod træning/kamp' in row and row['Jeg oplevede at tanker og handlinger var rettet mod træning/kamp'] == 5):
             color = 'yellow'
         return ['background-color: %s' % color] * row.size
+    eftertræning.set_index('Tidsstempel', inplace=True)
+    eftertræning.sort_index(ascending=False, inplace=True)
+    eftertræning = eftertræning.astype(int,errors='ignore')
     eftertræning = eftertræning.style.apply(color_row, axis=1, subset=pd.IndexSlice[:])
-    eftertræning.data.set_index('Tidsstempel', inplace=True)
-    eftertræning.data.sort_index(ascending=False, inplace=True)
-    eftertræning.data = eftertræning.data.astype(int,errors='ignore')
 
 
 
