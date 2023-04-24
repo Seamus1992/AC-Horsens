@@ -38,8 +38,18 @@ def Wellness_data():
         filtreretdfkamp = kampe
 
     filtreretdfkamp = df.loc[df.loc[df['Hvilken årgang er du?'].isin(filtreretdfkamp),'Hvilken årgang er du?'].index.values]
-    førtræning = filtreretdfkamp[['Tidsstempel','Spiller','Hvilken årgang er du?','Hvor frisk er du?','Hvordan har du det mentalt','Har du fået nok at spise inden træning/kamp?','Hvordan har din søvn været?','Hvor mange timer sov du i nat?']]
-    eftertræning = filtreretdfkamp[['Tidsstempel','Spiller','Hvilken årgang er du?','Træning/kamp - tid i minutter?','Hvor hård var træning/kamp? (10 er hårdest)','Hvor udmattet er du?','Bedøm din muskelømhed','Hvordan har du det mentalt?','Jeg følte mig tilpas udfordret under træning/kamp','Min tidsfornemmelse forsvandt under træning/kamp','Jeg oplevede at tanker og handlinger var rettet mod træning/kamp']]
+    
+    Spiller = filtreretdfkamp['Spiller'].drop_duplicates(keep='first')
+    option5 = st.multiselect('Vælg spiller (Hvis ingen spiller er valgt, vises alle)',Spiller)
+    if len(option5) > 0:
+        filtreretdfspiller = option5
+    else:
+        filtreretdfspiller = kampe
+
+    filtreretdfspiller = df.loc[df.loc[df['Spiller'].isin(filtreretdfspiller),'Spiller'].index.values]
+
+    førtræning = filtreretdfspiller[['Tidsstempel','Spiller','Hvilken årgang er du?','Hvor frisk er du?','Hvordan har du det mentalt','Har du fået nok at spise inden træning/kamp?','Hvordan har din søvn været?','Hvor mange timer sov du i nat?']]
+    eftertræning = filtreretdfspiller[['Tidsstempel','Spiller','Hvilken årgang er du?','Træning/kamp - tid i minutter?','Hvor hård var træning/kamp? (10 er hårdest)','Hvor udmattet er du?','Bedøm din muskelømhed','Hvordan har du det mentalt?','Jeg følte mig tilpas udfordret under træning/kamp','Min tidsfornemmelse forsvandt under træning/kamp','Jeg oplevede at tanker og handlinger var rettet mod træning/kamp']]
     førtræning.dropna(inplace=True)
     eftertræning.dropna(inplace=True)
 
