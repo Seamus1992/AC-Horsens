@@ -72,9 +72,9 @@ def Wellness_data():
 
 
     # Display the styled dataframe
-    st.write('Før træning')
+    st.write('Før aktivitet')
     st.dataframe(førtræning)
-    st.write('Efter træning')
+    st.write('Efter aktivitet')
     st.dataframe(eftertræning)
      
 def GPS_Data():
