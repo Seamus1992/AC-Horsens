@@ -41,5 +41,5 @@ for item in json_files:
 
 # Convert the events_list to a DataFrame
 df = pd.DataFrame(players_list)
-
+df.to_csv('Individuelt dashboard test.csv',index=False)
 print(df)
