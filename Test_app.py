@@ -516,7 +516,7 @@ def Teamsheet():
         fig.append_trace(trace8, row=2, col=4)
         
         st.title('Offensive parametre')
-        st.write('Skalaen går fra sidste års gennemsnit til denne sæsons ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
+        st.write('Skalaen går fra eget gennemsnit i seneste sæson til denne sæsons ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
         st.plotly_chart(fig,use_container_width=True)
         
         trace9 = go.Indicator(mode="gauge+number",    value=Benchmark['xG against'][1],domain={'row' : 1, 'column' : 1},title={'text': "xG against"},gauge={'axis':{'range':[Benchmark['xG against'][2],Benchmark['xG against'][0]]}})
@@ -542,7 +542,7 @@ def Teamsheet():
         fig1.append_trace(trace15, row=2, col=3)
         fig1.append_trace(trace16, row=2, col=4)
         st.title('Defensive parametre')
-        st.write('Skalaen går fra sidste års gennemsnit til denne sæsons ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
+        st.write('Skalaen går fra eget gennemsnit i seneste sæson til denne sæsons ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
         st.plotly_chart(fig1,use_container_width=True)
         
         
@@ -902,7 +902,7 @@ def Teamsheet():
         fig.append_trace(trace8, row=2, col=4)
         
         st.title('Offensive parametre')
-        st.write('Skalaen går fra sidste års gennemsnit til denne sæsons ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
+        st.write('Skalaen går fra eget gennemsnit i seneste sæson til denne sæsons ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
         st.plotly_chart(fig,use_container_width=True)
         
         trace9 = go.Indicator(mode="gauge+number",    value=Benchmark['xG against'][1],domain={'row' : 1, 'column' : 1},title={'text': "xG against"},gauge={'axis':{'range':[Benchmark['xG against'][2],Benchmark['xG against'][0]]}})
@@ -928,7 +928,7 @@ def Teamsheet():
         fig1.append_trace(trace15, row=2, col=3)
         fig1.append_trace(trace16, row=2, col=4)
         st.title('Defensive parametre')
-        st.write('Skalaen går fra sidste års gennemsnit til denne sæsons ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
+        st.write('Skalaen går fra eget gennemsnit i seneste sæson til denne sæsons ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
         st.plotly_chart(fig1,use_container_width=True)
         
     def U19():
@@ -1287,7 +1287,7 @@ def Teamsheet():
         fig.append_trace(trace8, row=2, col=4)
         
         st.title('Offensive parametre')
-        st.write('Skalaen går fra sidste års gennemsnit til denne sæsons ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
+        st.write('Skalaen går fra eget gennemsnit i seneste sæson til denne sæsons ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
         st.plotly_chart(fig,use_container_width=True)
         
         trace9 = go.Indicator(mode="gauge+number",    value=Benchmark['xG against'][1],domain={'row' : 1, 'column' : 1},title={'text': "xG against"},gauge={'axis':{'range':[Benchmark['xG against'][2],Benchmark['xG against'][0]]}})
@@ -1313,7 +1313,7 @@ def Teamsheet():
         fig1.append_trace(trace15, row=2, col=3)
         fig1.append_trace(trace16, row=2, col=4)
         st.title('Defensive parametre')
-        st.write('Skalaen går fra sidste års gennemsnit til denne sæsons ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
+        st.write('Skalaen går fra eget gennemsnit i seneste sæson til denne sæsons ligagennemsnit, ved ingen udfyldning er den rød, delvis udfyldning er gul, helt fyldt er grøn')
         st.plotly_chart(fig1,use_container_width=True)    
 
 
