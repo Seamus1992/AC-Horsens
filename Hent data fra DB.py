@@ -1070,7 +1070,7 @@ import streamlit as st
 connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2025-01-11T22:47:25Z&st=2022-01-11T14:47:25Z&spr=https&sig=CXdXPlHz%2FhW0IRugFTfCrB7osNQVZJ%2BHjNR1EM2s6RU%3D;FileEndpoint=https://divforeningendataout1.file.core.windows.net/;'
 share_name = 'divisionsforeningen-outgoingdata'
 dir_path = 'KampData/Sæson 22-23/U15 Ligaen/'
-
+print('U15 ligaen')
 
 service_client = ShareServiceClient.from_connection_string(connection_string)
 share_client = service_client.get_share_client(share_name)
@@ -1321,7 +1321,7 @@ connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2
 share_name = 'divisionsforeningen-outgoingdata'
 dir_path = 'KampData/Sæson 22-23/U17 Ligaen/'
 
-
+print('U17 data hentet')
 service_client = ShareServiceClient.from_connection_string(connection_string)
 share_client = service_client.get_share_client(share_name)
 directory_client = share_client.get_directory_client(dir_path)
@@ -1571,7 +1571,7 @@ connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2
 share_name = 'divisionsforeningen-outgoingdata'
 dir_path = 'KampData/Sæson 22-23/U19 Ligaen/'
 
-
+print('U19 holddata hentet')
 service_client = ShareServiceClient.from_connection_string(connection_string)
 share_client = service_client.get_share_client(share_name)
 directory_client = share_client.get_directory_client(dir_path)
