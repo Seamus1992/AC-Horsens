@@ -44,7 +44,7 @@ def Wellness_data():
     if len(option5) > 0:
         filtreretdfspiller = option5
     else:
-        filtreretdfspiller = kampe
+        filtreretdfspiller = Spiller
 
     filtreretdfspiller = df.loc[df.loc[df['Spiller'].isin(filtreretdfspiller),'Spiller'].index.values]
 
