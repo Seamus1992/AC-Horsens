@@ -1,7 +1,6 @@
 import gspread
 import pandas as pd
-import streamlit as st
-import numpy as np
+
 
 gc = gspread.service_account()
 sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1haWEtNQdhthKaSQjb2BRHlq2FLexicUOAHbjNFRAUAk/edit#gid=1984878556')
@@ -10,14 +9,9 @@ df = pd.DataFrame(ws.get_all_records())
 df.to_csv('ny wellness.csv',index=False)
 print('Wellness data hentet')
 
-import pandas as pd
-import streamlit as st
-import seaborn as sns
 import os
 import glob
-import matplotlib.pyplot as plt
-import openpyxl as xlsxwriter
-from pandas import DataFrame
+
 os.chdir(r'C:\Users\SéamusPeareBartholdy\OneDrive - AC Horsens A S\Akademi\Excel Organisering og indhold af træning framework\GPS udtræk')
 extension = 'csv'
 all_filenames = [i for i in glob.glob('*.{}'.format(extension))]
