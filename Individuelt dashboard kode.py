@@ -1,5 +1,7 @@
 import pandas as pd
 import streamlit as st
+import json
+from pandas import json_normalize
 df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard test.csv')
 df.rename(columns={'playerId': 'Player id'}, inplace=True)
 df = df.astype(str)
@@ -15,5 +17,5 @@ df['Player&matchId'] = df['Player&matchId'].drop_duplicates(keep='first')
 df = df.dropna()
 df = df[['Player id','Player name','matchId','label','date','positions','total','average','percent']]
 df = df.set_index('Player id')
+
 st.dataframe(df)
-print(df)
