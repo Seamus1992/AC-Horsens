@@ -10,3 +10,5 @@ seaborn==0.12.2
 xlrd==1.2.0
 XlsxWriter==3.0.8
 plotly==5.13.1
+pycparser==2.21
+pyparsing==3.09
