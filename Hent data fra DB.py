@@ -319,6 +319,16 @@ kampdetaljer = json_normalize(json_files)
 kampdetaljer = kampdetaljer[['wyId','label','date']]
 kampdetaljer = kampdetaljer.rename(columns={'wyId':'matchId'})
 df1 = kampdetaljer.merge(df)
+
+df1['date'] = df1['date'].astype(str)
+df1['date'] = df1['date'].apply(lambda x: parser.parse(x))
+
+# Sort the dataframe by the 'date' column
+df1 = df1.sort_values(by='date',ascending=False)
+
+# Format the 'date' column to day-month-year format
+df1['date'] = df1['date'].apply(lambda x: x.strftime('%d-%m-%Y'))
+        
 df1.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 eventdata.csv')
 print('U15 Data hentet')
 
@@ -597,6 +607,16 @@ kampdetaljer = json_normalize(json_files)
 kampdetaljer = kampdetaljer[['wyId','label','date']]
 kampdetaljer = kampdetaljer.rename(columns={'wyId':'matchId'})
 df1 = kampdetaljer.merge(df)
+
+df1['date'] = df1['date'].astype(str)
+df1['date'] = df1['date'].apply(lambda x: parser.parse(x))
+
+# Sort the dataframe by the 'date' column
+df1 = df1.sort_values(by='date',ascending=False)
+
+# Format the 'date' column to day-month-year format
+df1['date'] = df1['date'].apply(lambda x: x.strftime('%d-%m-%Y'))
+        
 df1.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 eventdata.csv')
 print(' U17 Data hentet')
 
