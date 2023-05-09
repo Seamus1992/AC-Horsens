@@ -2379,6 +2379,7 @@ def event_data():
         from mplsoccer.pitch import Pitch
         import matplotlib.pyplot as plt
         import plotly.express as px
+        from dateutil import parser
 
         df = pd.read_csv('U15 eventdata.csv',low_memory=False)
         df['date'] = df['date'].astype(str)
