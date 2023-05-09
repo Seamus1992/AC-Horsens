@@ -3,6 +3,7 @@ import streamlit as st
 import json
 from pandas import json_normalize
 import ast
+from dateutil import parser
 df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard U15.csv')
 df.rename(columns={'playerId': 'Player id'}, inplace=True)
 df = df.astype(str)
@@ -59,4 +60,13 @@ df = pd.concat([df, new_df], axis=1)
 # Drop the original 'percent' column
 df = df.drop('average', axis=1)
 df['position_codes'] = df['position_codes'].astype(str)
+df['date'] = df['date'].astype(str)
+df['date'] = df['date'].apply(lambda x: parser.parse(x))
+
+# Sort the dataframe by the 'date' column
+df = df.sort_values(by='date',ascending=False)
+
+# Format the 'date' column to day-month-year format
+df['date'] = df['date'].apply(lambda x: x.strftime('%d-%m-%Y'))
+
 st.dataframe(df)

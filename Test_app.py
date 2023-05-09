@@ -2381,7 +2381,14 @@ def event_data():
         import plotly.express as px
 
         df = pd.read_csv('U15 eventdata.csv',low_memory=False)
+        df['date'] = df['date'].astype(str)
+        df['date'] = df['date'].apply(lambda x: parser.parse(x))
 
+        # Sort the dataframe by the 'date' column
+        df = df.sort_values(by='date',ascending=False)
+
+        # Format the 'date' column to day-month-year format
+        df['date'] = df['date'].apply(lambda x: x.strftime('%d-%m-%Y'))
         kampe = df['label'].drop_duplicates(keep='first')
         option4 = st.multiselect('Vælg kamp (Hvis ingen kamp er valgt, vises alle)',kampe)
         if len(option4) > 0:
