@@ -1432,6 +1432,15 @@ kampdetaljer = kampdetaljer.rename(columns={'wyId':'matchId'})
 dfegnekampe = kampdetaljer.merge(df)
 dfegnekampe['label'] = dfegnekampe['label'].astype(str)
 dfegnekampe = dfegnekampe[dfegnekampe['label'].str.contains('Horsens')]
+dfegnekampe['date'] = dfegnekampe['date'].astype(str)
+dfegnekampe['date'] = dfegnekampe['date'].apply(lambda x: parser.parse(x))
+
+# Sort the dataframe by the 'date' column
+dfegnekampe = dfegnekampe.sort_values(by='date',ascending=False)
+
+# Format the 'date' column to day-month-year format
+dfegnekampe['date'] = dfegnekampe['date'].apply(lambda x: x.strftime('%d-%m-%Y'))
+
 dfegnekampe.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet egne kampe U17.csv',index=False)
 
 
@@ -1682,6 +1691,15 @@ kampdetaljer = kampdetaljer.rename(columns={'wyId':'matchId'})
 dfegnekampe = kampdetaljer.merge(df)
 dfegnekampe['label'] = dfegnekampe['label'].astype(str)
 dfegnekampe = dfegnekampe[dfegnekampe['label'].str.contains('Horsens')]
+
+dfegnekampe['date'] = dfegnekampe['date'].astype(str)
+dfegnekampe['date'] = dfegnekampe['date'].apply(lambda x: parser.parse(x))
+
+# Sort the dataframe by the 'date' column
+dfegnekampe = dfegnekampe.sort_values(by='date',ascending=False)
+
+# Format the 'date' column to day-month-year format
+dfegnekampe['date'] = dfegnekampe['date'].apply(lambda x: x.strftime('%d-%m-%Y'))
 dfegnekampe.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet egne kampe U19.csv',index=False)
 
 from azure.storage.fileshare import ShareServiceClient
