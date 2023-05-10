@@ -102,5 +102,21 @@ df_Angribere['xA per 90 score'] = pd.qcut(df_Angribere['average_xgAssist'].rank(
 df_Angribere['Touches in box per 90 score'] = pd.qcut(df_Angribere['average_touchInBox'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Angribere['Progressive passes per 90 score'] = pd.qcut(df_Angribere['average_successfulProgressivePasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Angribere['Successful attacking actions per 90 score'] = pd.qcut(df_Angribere['average_successfulAttackingActions'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
-df_Angribere = df_Angribere[['Player name','Team name','label','date','position_names','total_minutesOnField','xG per 90 score','Goals per 90 score','Shots on target, % score','Offensive duels won, % score','Duels won, % score','Accurate passes, % score','Successful dribbles, % score','xA per 90 score','Touches in box per 90 score','Progressive passes per 90 score','Successful attacking actions per 90 score']]
-st.dataframe(df_Angribere)
+df_Angriberesæsonen = df_Angribere[['Player name','Team name','xG per 90 score','Goals per 90 score','Shots on target, % score','Offensive duels won, % score','Duels won, % score','Accurate passes, % score','Successful dribbles, % score','xA per 90 score','Touches in box per 90 score','Progressive passes per 90 score','Successful attacking actions per 90 score']]
+df_Angribereperiode = df_Angribere[['Player name','Team name','label','date','total_minutesOnField','xG per 90 score','Goals per 90 score','Shots on target, % score','Offensive duels won, % score','Duels won, % score','Accurate passes, % score','Successful dribbles, % score','xA per 90 score','Touches in box per 90 score','Progressive passes per 90 score','Successful attacking actions per 90 score']]
+#df_Angribereperiode = df_Angribereperiode.groupby(['Player id','Player name','Team name']).mean(numeric_only=True)
+df_Angriberesæsonen = df_Angriberesæsonen.groupby(['Player id','Player name','Team name']).mean(numeric_only=True)
+df_Angriberesæsonen['Sparkefærdigheder Angriber'] = (df_Angriberesæsonen['xG per 90 score'] + df_Angriberesæsonen['xG per 90 score'] + df_Angriberesæsonen['Goals per 90 score'] + df_Angriberesæsonen['Shots on target, % score'])/4
+df_Angriberesæsonen['Boldfast Angriber'] = (df_Angriberesæsonen['Offensive duels won, % score'] + df_Angriberesæsonen['Offensive duels won, % score'] + df_Angriberesæsonen['Duels won, % score'] + df_Angriberesæsonen['Accurate passes, % score'] + df_Angriberesæsonen['Successful dribbles, % score'])/5
+df_Angriberesæsonen['Spilintelligens offensivt Angriber'] = (df_Angriberesæsonen['xA per 90 score'] + df_Angriberesæsonen['xG per 90 score'] + df_Angriberesæsonen['Touches in box per 90 score'] + df_Angriberesæsonen['Progressive passes per 90 score'] + df_Angriberesæsonen['Successful attacking actions per 90 score'] + df_Angriberesæsonen['Touches in box per 90 score'] + df_Angriberesæsonen['xG per 90 score'])/7
+df_Angriberesæsonen = df_Angriberesæsonen[['Sparkefærdigheder Angriber','Boldfast Angriber','Spilintelligens offensivt Angriber']]
+df_Angriberesæsonen['Samlet'] = (df_Angriberesæsonen['Sparkefærdigheder Angriber']+df_Angriberesæsonen['Boldfast Angriber']+df_Angriberesæsonen['Spilintelligens offensivt Angriber'])/3
+
+df_Angribereperiode['Sparkefærdigheder Angriber'] = (df_Angribereperiode['xG per 90 score'] + df_Angribereperiode['xG per 90 score'] + df_Angribereperiode['Goals per 90 score'] + df_Angribereperiode['Shots on target, % score'])/4
+df_Angribereperiode['Boldfast Angriber'] = (df_Angribereperiode['Offensive duels won, % score'] + df_Angribereperiode['Offensive duels won, % score'] + df_Angribereperiode['Duels won, % score'] + df_Angribereperiode['Accurate passes, % score'] + df_Angribereperiode['Successful dribbles, % score'])/5
+df_Angribereperiode['Spilintelligens offensivt Angriber'] = (df_Angribereperiode['xA per 90 score'] + df_Angribereperiode['xG per 90 score'] + df_Angribereperiode['Touches in box per 90 score'] + df_Angribereperiode['Progressive passes per 90 score'] + df_Angribereperiode['Successful attacking actions per 90 score'] + df_Angribereperiode['Touches in box per 90 score'] + df_Angribereperiode['xG per 90 score'])/7
+df_Angribereperiode = df_Angribereperiode[['Player name','Team name','label','date','total_minutesOnField','Sparkefærdigheder Angriber','Boldfast Angriber','Spilintelligens offensivt Angriber']]
+df_Angribereperiode['Samlet'] = (df_Angribereperiode['Sparkefærdigheder Angriber']+df_Angribereperiode['Boldfast Angriber']+df_Angribereperiode['Spilintelligens offensivt Angriber'])/3
+
+st.dataframe(df_Angriberesæsonen)
+st.dataframe(df_Angribereperiode)
