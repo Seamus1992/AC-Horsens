@@ -176,10 +176,10 @@ def Teamsheet():
 
         dfsorteredekampe = df.loc[df.loc[df.label.isin(temp_select),'label'].index.values]
         dfsorteredekampe = dfsorteredekampe.iloc[: , 1:]
-        dfsorteredekampe['date'] = dfsorteredekampe['date'].astype(str)
-        dfsorteredekampe['date'] = dfsorteredekampe['date'].str.replace(r'\sGMT.*$', '', regex=True)
-        dfsorteredekampe['date'] = pd.to_datetime(dfsorteredekampe['date'], format="%B %d, %Y at %I:%M:%S %p")
-        dfsorteredekampe['date'] = dfsorteredekampe['date'].dt.strftime('%d-%m-%Y')
+        #dfsorteredekampe['date'] = dfsorteredekampe['date'].astype(str)
+        #dfsorteredekampe['date'] = dfsorteredekampe['date'].str.replace(r'\sGMT.*$', '', regex=True)
+        #dfsorteredekampe['date'] = pd.to_datetime(dfsorteredekampe['date'], format="%B %d, %Y at %I:%M:%S %p")
+        #dfsorteredekampe['date'] = dfsorteredekampe['date'].dt.strftime('%d-%m-%Y')
         dfsorteredekampe = dfsorteredekampe.transpose()
         dfoverskrifter = dfsorteredekampe[:2]
         dfsorteredekampe = dfsorteredekampe[2:].apply(pd.to_numeric, errors='coerce')
