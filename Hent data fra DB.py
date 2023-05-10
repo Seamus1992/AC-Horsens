@@ -1005,7 +1005,7 @@ dfegnekampe = kampdetaljer.merge(df)
 dfegnekampe['label'] = dfegnekampe['label'].astype(str)
 dfegnekampe = dfegnekampe[dfegnekampe['label'].str.contains('Horsens')]
 dfegnekampe.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet alle kampe U15 sidste sæson.csv',index=False)
-
+print('U15 data til teamsheet hentet')
 from azure.storage.fileshare import ShareServiceClient
 import json
 import pandas as pd
@@ -1090,7 +1090,7 @@ dfegnekampe = kampdetaljer.merge(df)
 dfegnekampe['label'] = dfegnekampe['label'].astype(str)
 #dfegnekampe = dfegnekampe[dfegnekampe['label'].str.contains('Horsens')]
 dfegnekampe.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet alle kampe U15.csv',index=False)
-
+print('U15 data til benchmark hentet')
 from azure.storage.fileshare import ShareServiceClient
 import json
 import pandas as pd
@@ -1101,7 +1101,6 @@ import streamlit as st
 connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2025-01-11T22:47:25Z&st=2022-01-11T14:47:25Z&spr=https&sig=CXdXPlHz%2FhW0IRugFTfCrB7osNQVZJ%2BHjNR1EM2s6RU%3D;FileEndpoint=https://divforeningendataout1.file.core.windows.net/;'
 share_name = 'divisionsforeningen-outgoingdata'
 dir_path = 'KampData/Sæson 22-23/U15 Ligaen/'
-print('U15 ligaen')
 
 service_client = ShareServiceClient.from_connection_string(connection_string)
 share_client = service_client.get_share_client(share_name)
@@ -1183,7 +1182,7 @@ dfegnekampe = dfegnekampe.sort_values(by='date',ascending=False)
 # Format the 'date' column to day-month-year format
 dfegnekampe['date'] = dfegnekampe['date'].apply(lambda x: x.strftime('%d-%m-%Y'))
 dfegnekampe.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet egne kampe U15.csv',index=False)
-
+print('Alt data hentet til teamsheet')
 
 #Start på U17
 connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2025-01-11T22:47:25Z&st=2022-01-11T14:47:25Z&spr=https&sig=CXdXPlHz%2FhW0IRugFTfCrB7osNQVZJ%2BHjNR1EM2s6RU%3D;FileEndpoint=https://divforeningendataout1.file.core.windows.net/;'
@@ -1263,6 +1262,7 @@ dfegnekampe = kampdetaljer.merge(df)
 dfegnekampe['label'] = dfegnekampe['label'].astype(str)
 dfegnekampe = dfegnekampe[dfegnekampe['label'].str.contains('Horsens')]
 dfegnekampe.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet alle kampe U17 sidste sæson.csv',index=False)
+print('U17 kampe seneste sæson hentet til teamsheet')
 
 from azure.storage.fileshare import ShareServiceClient
 import json
@@ -1348,7 +1348,7 @@ dfegnekampe = kampdetaljer.merge(df)
 dfegnekampe['label'] = dfegnekampe['label'].astype(str)
 #dfegnekampe = dfegnekampe[dfegnekampe['label'].str.contains('Horsens')]
 dfegnekampe.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet alle kampe U17.csv',index=False)
-
+print('Alle U17 kampe hentet til teamsheet')
 from azure.storage.fileshare import ShareServiceClient
 import json
 import pandas as pd
@@ -1360,7 +1360,6 @@ connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2
 share_name = 'divisionsforeningen-outgoingdata'
 dir_path = 'KampData/Sæson 22-23/U17 Ligaen/'
 
-print('U17 data hentet')
 service_client = ShareServiceClient.from_connection_string(connection_string)
 share_client = service_client.get_share_client(share_name)
 directory_client = share_client.get_directory_client(dir_path)
@@ -1522,7 +1521,7 @@ dfegnekampe = kampdetaljer.merge(df)
 dfegnekampe['label'] = dfegnekampe['label'].astype(str)
 dfegnekampe = dfegnekampe[dfegnekampe['label'].str.contains('Horsens')]
 dfegnekampe.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet alle kampe U19 sidste sæson.csv',index=False)
-
+print('U19 data hentet til teamsheet')
 from azure.storage.fileshare import ShareServiceClient
 import json
 import pandas as pd
@@ -1619,7 +1618,6 @@ connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2
 share_name = 'divisionsforeningen-outgoingdata'
 dir_path = 'KampData/Sæson 22-23/U19 Ligaen/'
 
-print('U19 holddata hentet')
 service_client = ShareServiceClient.from_connection_string(connection_string)
 share_client = service_client.get_share_client(share_name)
 directory_client = share_client.get_directory_client(dir_path)
@@ -1701,7 +1699,7 @@ dfegnekampe = dfegnekampe.sort_values(by='date',ascending=False)
 # Format the 'date' column to day-month-year format
 dfegnekampe['date'] = dfegnekampe['date'].apply(lambda x: x.strftime('%d-%m-%Y'))
 dfegnekampe.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Teamsheet egne kampe U19.csv',index=False)
-
+print('U19 data hentet til teamsheet')
 from azure.storage.fileshare import ShareServiceClient
 import json
 import pandas as pd
@@ -1746,7 +1744,7 @@ for item in json_files:
 # Convert the events_list to a DataFrame
 df = pd.DataFrame(players_list)
 df.to_csv('Individuelt dashboard U15.csv',index=False)
-print('Matchstats hentet')
+print('Matchstats hentet til U15')
 json_files = []
 
 def find_json_files(directory_client):
