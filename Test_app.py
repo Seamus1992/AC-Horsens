@@ -1323,6 +1323,7 @@ def Teamsheet():
     }
     rullemenu = st.selectbox('Vælg årgang',Årgange.keys())
     Årgange[rullemenu]()
+    
 def Individuelt_dashboard():
     import pandas as pd
     import openpyxl
