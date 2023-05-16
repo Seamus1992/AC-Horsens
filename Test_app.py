@@ -145,13 +145,13 @@ def GPS_Data():
     Ugenumre_sorteret = dforiginal.drop_duplicates(subset=['Ugenummer'])
     Ugenumre_sorteret = sorted(Ugenumre_sorteret['Ugenummer'])
     filtreret_GPSspiller = df_GPS.loc[df_GPS.loc[df_GPS['Player Name'] == option, 'Player Name'].index.values]
-
+    Ugenummer1 = filtreret_GPSspiller['Ugenummer'].drop_duplicates()
     df = filtreret_GPSspiller
-    option3 = st.multiselect('Vælg ugenummer)',Ugenummer)
+    option3 = st.multiselect('Vælg ugenummer)',Ugenummer1)
     if len(option3) > 0:
         temp_select = option3
     else:
-        temp_select = Ugenummer
+        temp_select = Ugenummer1
 
     filtreret_dfugenummer = df.loc[df.loc[df.Ugenummer.isin(temp_select),'Ugenummer'].index.values]
 
