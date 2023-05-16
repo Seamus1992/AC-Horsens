@@ -146,9 +146,9 @@ def GPS_Data():
             if i !=None:
                 df_Ugenummer.append(i)
     df_Ugenummer = sorted(df_Ugenummer)
-    option2 = st.multiselect('Vælg ugenummer',df_Ugenummer)
+    option3 = st.multiselect('Vælg ugenummer',df_Ugenummer)
 
-    filtreret_dfugenummer = df_GPS.loc[df.loc[df_GPS.Ugenummer.isin(option2),'Ugenummer'].index.values]
+    filtreret_dfugenummer = df_GPS.loc[df.loc[df_GPS.Ugenummer.isin(option3),'Ugenummer'].index.values]
     df = filtreret_dfugenummer
     df = df[df['Distance (km)'] !=0]
     df['Date'] = df['Date'].astype(str)
