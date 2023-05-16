@@ -143,7 +143,7 @@ def GPS_Data():
     dfspiller = df_GPS[['Ugenummer','Player Name','Date','Distance (km)', 'Top Speed (km/h)', 'Højintens løb', 'Sprint', 'Hårde Accelerationer', 'Hårde deccelerationer','Tid med høj puls']]
     spillere = dfspiller.drop_duplicates(subset=['Player Name'])
     option = st.selectbox('Vælg spiller',spillere['Player Name'])
-    dfspiller = dfspiller.loc[dfspiller.loc[dfspiller['Player Name'].isin(option),'Player name'].index.values]
+    dfspiller = dfspiller.loc[dfspiller.loc[dfspiller.Player_name.isin(option),'Player name'].index.values]
     Ugenumre_sorteret = dfspiller.drop_duplicates(subset=['Ugenummer'])
     Ugenumre_sorteret = sorted(Ugenumre_sorteret['Ugenummer'])
     df = dfspiller.loc[dfspiller.loc[dfspiller['Ugenummer'] == option2, 'Ugenummer'].index.values]
