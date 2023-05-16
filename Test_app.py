@@ -117,17 +117,25 @@ def GPS_Data():
     df_GPSgennemsnit = df_GPS[['Ugenummer','Player Name','Date','Distance (km)', 'Top Speed (km/h)', 'Højintens løb', 'Sprint', 'Hårde Accelerationer', 'Hårde deccelerationer','Tid med høj puls']]
     df_GPSgennemsnit = df_GPSgennemsnit.groupby(['Date']).mean(numeric_only=True)
     df_GPSgennemsnit['Ugenummer'] = df_GPSgennemsnit['Ugenummer'].astype(int)
-    
-    df = df_GPSgennemsnit
     Ugenummer = df_GPSgennemsnit['Ugenummer']
-    df_Ugenummer = []
-    for i in Ugenummer:
-        if i not in df_Ugenummer:
-            if i !=None:
-                df_Ugenummer.append(i)
-    df_Ugenummer = sorted(df_Ugenummer)
-    option2 = st.multiselect('Vælg ugenummer',df_Ugenummer)
-    df_GPSgennemsnit = df_GPSgennemsnit.loc[df.loc[df_GPSgennemsnit.Ugenummer.isin(option2),'Ugenummer'].index.values]
+    df = df_GPSgennemsnit
+    option2 = st.multiselect('Vælg ugenummer)',Ugenummer)
+    if len(option2) > 0:
+        temp_select = option2
+    else:
+        temp_select = Ugenummer
+
+    df_GPSgennemsnit = df.loc[df.loc[df.Ugenummer.isin(temp_select),'Ugenummer'].index.values]
+    #df = df_GPSgennemsnit
+    #Ugenummer = df_GPSgennemsnit['Ugenummer']
+    #df_Ugenummer = []
+    #for i in Ugenummer:
+    #    if i not in df_Ugenummer:
+    #        if i !=None:
+    #            df_Ugenummer.append(i)
+    #df_Ugenummer = sorted(df_Ugenummer)
+    #option2 = st.multiselect('Vælg ugenummer',df_Ugenummer)
+    #df_GPSgennemsnit = df_GPSgennemsnit.loc[df.loc[df_GPSgennemsnit.Ugenummer.isin(option2),'Ugenummer'].index.values]
     
     st.write('Trupgennemsnit pr. dag')
     st.line_chart(df_GPSgennemsnit,y=['Sprint','Distance (km)','Top Speed (km/h)','Højintens løb','Hårde Accelerationer','Hårde deccelerationer','Tid med høj puls'],)
