@@ -140,9 +140,14 @@ def GPS_Data():
     st.write('Trupgennemsnit pr. dag')
     st.line_chart(df_GPSgennemsnit,y=['Sprint','Distance (km)','Top Speed (km/h)','Højintens løb','Hårde Accelerationer','Hårde deccelerationer','Tid med høj puls'],)
     st.dataframe(df_GPSgennemsnit)
-    spillere = df_GPSgennemsnit.drop_duplicates(subset=['Player Name'])
+    dfspiller = df_GPS[['Ugenummer','Player Name','Date','Distance (km)', 'Top Speed (km/h)', 'Højintens løb', 'Sprint', 'Hårde Accelerationer', 'Hårde deccelerationer','Tid med høj puls']]
+    spillere = dfspiller.drop_duplicates(subset=['Player Name'])
     option = st.selectbox('Vælg spiller',spillere['Player Name'])
-    
+    dfspiller = dfspiller.loc[dfspiller.loc[dfspiller['Player Name'].isin(option),'Player name'].index.values]
+    Ugenumre_sorteret = dfspiller.drop_duplicates(subset=['Ugenummer'])
+    Ugenumre_sorteret = sorted(Ugenumre_sorteret['Ugenummer'])
+    df = dfspiller.loc[dfspiller.loc[dfspiller['Ugenummer'] == option2, 'Ugenummer'].index.values]
+
     df = df[df['Distance (km)'] !=0]
     df['Date'] = df['Date'].astype(str)
     df = df.rename(columns={'Date':'index'}).set_index('index')
