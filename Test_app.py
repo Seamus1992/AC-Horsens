@@ -117,7 +117,7 @@ def GPS_Data():
     df_GPSgennemsnit = df_GPS[['Ugenummer','Player Name','Date','Distance (km)', 'Top Speed (km/h)', 'Højintens løb', 'Sprint', 'Hårde Accelerationer', 'Hårde deccelerationer','Tid med høj puls']]
     df_GPSgennemsnit = df_GPSgennemsnit.groupby(['Date']).mean(numeric_only=True)
     df_GPSgennemsnit['Ugenummer'] = df_GPSgennemsnit['Ugenummer'].astype(int)
-    Ugenummer = df_GPSgennemsnit['Ugenummer']
+    Ugenummer = df_GPSgennemsnit['Ugenummer'].drop_duplicates()
     df = df_GPSgennemsnit
     option2 = st.multiselect('Vælg ugenummer)',Ugenummer)
     if len(option2) > 0:
