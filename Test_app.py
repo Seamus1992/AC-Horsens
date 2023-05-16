@@ -140,13 +140,13 @@ def GPS_Data():
 
     df = filtreret_GPSspiller
     Ugenummer = df_GPS['Ugenummer']
-    df_Ugenummer = []
+    df_Ugenummer1 = []
     for i in Ugenummer:
-        if i not in df_Ugenummer:
+        if i not in df_Ugenummer1:
             if i !=None:
-                df_Ugenummer.append(i)
-    df_Ugenummer = sorted(df_Ugenummer)
-    option3 = st.multiselect('Vælg ugenummer',df_Ugenummer)
+                df_Ugenummer1.append(i)
+    df_Ugenummer1 = sorted(df_Ugenummer1)
+    option3 = st.multiselect('Vælg ugenummer for spiller',df_Ugenummer)
 
     filtreret_dfugenummer = df_GPS.loc[df.loc[df_GPS.Ugenummer.isin(option3),'Ugenummer'].index.values]
     df = filtreret_dfugenummer
