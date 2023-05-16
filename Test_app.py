@@ -146,7 +146,7 @@ def GPS_Data():
             if i !=None:
                 df_Ugenummer1.append(i)
     df_Ugenummer1 = sorted(df_Ugenummer1)
-    option3 = st.multiselect('Vælg ugenummer for spiller',df_Ugenummer)
+    option3 = st.multiselect('Vælg ugenummer for spiller',df_Ugenummer1)
 
     filtreret_dfugenummer = df_GPS.loc[df.loc[df_GPS.Ugenummer.isin(option3),'Ugenummer'].index.values]
     df = filtreret_dfugenummer
