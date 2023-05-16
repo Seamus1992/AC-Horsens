@@ -127,7 +127,7 @@ def GPS_Data():
                 df_Ugenummer.append(i)
     df_Ugenummer = sorted(df_Ugenummer)
     option2 = st.multiselect('Vælg ugenummer',df_Ugenummer)
-    filtreret_dfugenummer = df_GPSgennemsnit.loc[df.loc[df_GPSgennemsnit.Ugenummer.isin(option2),'Ugenummer'].index.values]
+    df_GPSgennemsnit = df_GPSgennemsnit.loc[df.loc[df_GPSgennemsnit.Ugenummer.isin(option2),'Ugenummer'].index.values]
     
     st.write('Trupgennemsnit pr. dag')
     st.line_chart(df_GPSgennemsnit,y=['Sprint','Distance (km)','Top Speed (km/h)','Højintens løb','Hårde Accelerationer','Hårde deccelerationer','Tid med høj puls'],)
