@@ -134,6 +134,7 @@ def GPS_Data():
     option4 = st.selectbox('Vælg spiller',spillere['Player Name'])
     
     df = df_GPSgennemsnit1.loc[df_GPSgennemsnit1.loc[df_GPSgennemsnit1['Player Name'] == option4,'Player Name'].index.values]
+    df = df.loc[df.loc[df.Ugenummer.isin(temp_select),'Ugenummer'].index.values]
 
     df = df[df['Distance (km)'] !=0]
     df['Date'] = df['Date'].astype(str)
