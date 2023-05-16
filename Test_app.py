@@ -114,8 +114,8 @@ def GPS_Data():
     Trup = ['U17','U19']
     option0 = st.selectbox('Vælg trup',Trup)
     df_GPS = df_GPS.loc[df_GPS.loc[df_GPS['Trup'] == option0,'Trup'].index.values]
-    df_GPSgennemsnit = df_GPS[['Ugenummer','Player Name','Date','Distance (km)', 'Top Speed (km/h)', 'Højintens løb', 'Sprint', 'Hårde Accelerationer', 'Hårde deccelerationer','Tid med høj puls']]
-    df_GPSgennemsnit = df_GPSgennemsnit.groupby(['Date']).mean(numeric_only=True)
+    df_GPSgennemsnit1 = df_GPS[['Ugenummer','Player Name','Date','Distance (km)', 'Top Speed (km/h)', 'Højintens løb', 'Sprint', 'Hårde Accelerationer', 'Hårde deccelerationer','Tid med høj puls']]
+    df_GPSgennemsnit = df_GPSgennemsnit1.groupby(['Date']).mean(numeric_only=True)
     df_GPSgennemsnit['Ugenummer'] = df_GPSgennemsnit['Ugenummer'].astype(int)
     Ugenummer = df_GPSgennemsnit['Ugenummer'].drop_duplicates()
     df = df_GPSgennemsnit
@@ -126,27 +126,14 @@ def GPS_Data():
         temp_select = Ugenummer
 
     df_GPSgennemsnit = df.loc[df.loc[df.Ugenummer.isin(temp_select),'Ugenummer'].index.values]
-    #df = df_GPSgennemsnit
-    #Ugenummer = df_GPSgennemsnit['Ugenummer']
-    #df_Ugenummer = []
-    #for i in Ugenummer:
-    #    if i not in df_Ugenummer:
-    #        if i !=None:
-    #            df_Ugenummer.append(i)
-    #df_Ugenummer = sorted(df_Ugenummer)
-    #option2 = st.multiselect('Vælg ugenummer',df_Ugenummer)
-    #df_GPSgennemsnit = df_GPSgennemsnit.loc[df.loc[df_GPSgennemsnit.Ugenummer.isin(option2),'Ugenummer'].index.values]
-    
+
     st.write('Trupgennemsnit pr. dag')
     st.line_chart(df_GPSgennemsnit,y=['Sprint','Distance (km)','Top Speed (km/h)','Højintens løb','Hårde Accelerationer','Hårde deccelerationer','Tid med høj puls'],)
     st.dataframe(df_GPSgennemsnit)
-    dfspiller = df_GPS[['Ugenummer','Player Name','Date','Distance (km)', 'Top Speed (km/h)', 'Højintens løb', 'Sprint', 'Hårde Accelerationer', 'Hårde deccelerationer','Tid med høj puls']]
-    spillere = dfspiller.drop_duplicates(subset=['Player Name'])
-    option = st.selectbox('Vælg spiller',spillere['Player Name'])
-    dfspiller = dfspiller.loc[dfspiller.loc[dfspiller.['Player Name'].isin(option),'Player Name'].index.values]
-    Ugenumre_sorteret = dfspiller.drop_duplicates(subset=['Ugenummer'])
-    Ugenumre_sorteret = sorted(Ugenumre_sorteret['Ugenummer'])
-    df = dfspiller.loc[dfspiller.loc[dfspiller.Ugenummer.isin(option2), 'Ugenummer'].index.values]
+    spillere = df_GPSgennemsnit1.drop_duplicates(subset=['Player Name'])
+    option4 = st.selectbox('Vælg spiller',spillere['Player Name'])
+    
+    df = df_GPSgennemsnit1.loc[df_GPSgennemsnit1.loc[df_GPSgennemsnit1['Player Name'] == option4,'Player Name'].index.values]
 
     df = df[df['Distance (km)'] !=0]
     df['Date'] = df['Date'].astype(str)
