@@ -84,12 +84,38 @@ df = df.sort_values(by='date',ascending=False)
 df['date'] = df['date'].apply(lambda x: x.strftime('%d-%m-%Y'))
 
 df_backs = df[df['position_codes'].str.contains('|'.join(['lb', 'rb']))]
+df_backsminutter = df_backs[['Player name','total_minutesOnField']]
+df_backsminutter = df_backsminutter.groupby(['Player name']).sum(numeric_only=True)
+df_backsminutter = df_backsminutter[df_backsminutter['total_minutesOnField'] >= 300]
 df_Stoppere = df[df['position_codes'].str.contains('|'.join(['cb']))]
 df_Centrale_midt = df[df['position_codes'].str.contains('|'.join(['cm','amf','dmf']))]
 df_Kanter = df[df['position_codes'].str.contains('|'.join(['rw','lw','ramf','lamf']))]
 df_Angribere = df[df['position_codes'].str.contains('|'.join(['cf']))]
-st.dataframe(df)
+st.dataframe(df_backsminutter)
 
+df_backs = pd.merge(df_backsminutter,df_backs,on=('Player name'))
+df_backs['Accurate crosses score'] = pd.qcut(df_backs['percent_successfulCrosses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_backs['Number of crosses score'] = pd.qcut(df_backs['average_crosses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_backs['XA score'] = pd.qcut(df_backs['average_xgAssist'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_backs['Passes to final third score'] = pd.qcut(df_backs['average_successfulPassesToFinalThird'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_backs['Successful dribbles score'] = pd.qcut(df_backs['percent_newSuccessfulDribbles'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_backs['Defensive duels won score'] = pd.qcut(df_backs['percent_newDefensiveDuelsWon'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_backs['Progressive runs score'] = pd.qcut(df_backs['average_progressiveRun'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_backs['Offensive duels won score'] = pd.qcut(df_backs['percent_newOffensiveDuelsWon'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_backs['Accelerations score'] = pd.qcut(df_backs['average_accelerations'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_backs['Duels won score'] = pd.qcut(df_backs['percent_newDuelsWon'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_backs['Interceptions score'] = pd.qcut(df_backs['average_interceptions'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_backs['Successful defensive actions score'] = pd.qcut(df_backs['average_successfulDefensiveAction'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+#df_backs = pd.merge(df_backsminutter,df_backs, on='Player name')
+df_backssæsonen = df_backs[['Player name','Team name','total_minutesOnField_x','total_minutesOnField_y','Number of crosses score','Accurate crosses score','XA score','Passes to final third score','Successful dribbles score','Defensive duels won score','Progressive runs score','Offensive duels won score','Accelerations score','Duels won score','Interceptions score','Successful defensive actions score']]
+df_backssæsonen = df_backssæsonen.groupby(['Player name','Team name','total_minutesOnField_x']).mean(numeric_only=True)
+df_backssæsonen['Indlægsstærk'] = (df_backssæsonen['Number of crosses score'] + df_backssæsonen['Accurate crosses score'] + df_backssæsonen['XA score'] + df_backssæsonen['Passes to final third score'])/4
+df_backssæsonen['1v1 færdigheder'] = (df_backssæsonen['Successful dribbles score'] + df_backssæsonen['Defensive duels won score'] + df_backssæsonen['Progressive runs score'] + df_backssæsonen['Offensive duels won score'] + df_backssæsonen['Accelerations score'] + df_backssæsonen['Duels won score'])/6
+df_backssæsonen['Spilintelligens defensivt'] = (df_backssæsonen['Interceptions score'] + df_backssæsonen['Successful defensive actions score'] + df_backssæsonen['Duels won score'] + df_backssæsonen['Defensive duels won score'])/4
+df_backssæsonen['Fart'] = (df_backssæsonen['Successful dribbles score'] + df_backssæsonen['Progressive runs score'] + df_backssæsonen['Offensive duels won score'] + df_backssæsonen['Accelerations score'])/4
+df_backssæsonen ['Samlet'] = (df_backssæsonen['Indlægsstærk'] + df_backssæsonen['1v1 færdigheder'] + df_backssæsonen['Spilintelligens defensivt'] + df_backssæsonen['Fart'])
+
+df_backssæsonen = df_backssæsonen[['Indlægsstærk','1v1 færdigheder','Spilintelligens defensivt','Fart']]
 
 df_Angribere['xG per 90 score'] = pd.qcut(df_Angribere['average_xgShot'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Angribere['Goals per 90 score'] = pd.qcut(df_Angribere['average_goals'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)  
@@ -120,5 +146,7 @@ df_Angribereperiode['Målfarlighed'] = (df_Angribereperiode['xG per 90 score']+d
 df_Angribereperiode = df_Angribereperiode[['Player name','Team name','label','date','total_minutesOnField','Sparkefærdigheder Angriber','Boldfast Angriber','Spilintelligens offensivt Angriber','Målfarlighed']]
 df_Angribereperiode['Samlet'] = (df_Angribereperiode['Sparkefærdigheder Angriber']+df_Angribereperiode['Boldfast Angriber']+df_Angribereperiode['Spilintelligens offensivt Angriber']+df_Angribereperiode['Målfarlighed'])/4
 
+st.dataframe(df_backs)
+st.dataframe(df_backssæsonen)
 st.dataframe(df_Angriberesæsonen)
 st.dataframe(df_Angribereperiode)
