@@ -74,33 +74,41 @@ df = pd.concat([df, new_df], axis=1)
 # Drop the original 'percent' column
 df = df.drop('average', axis=1)
 df['position_codes'] = df['position_codes'].astype(str)
-df['date'] = df['date'].astype(str)
-df['date'] = df['date'].apply(lambda x: parser.parse(x))
+#df['date'] = df['date'].astype(str)
+#df['date'] = df['date'].apply(lambda x: parser.parse(x))
 
 # Sort the dataframe by the 'date' column
-df = df.sort_values(by='date',ascending=False)
+#df = df.sort_values(by='date',ascending=False)
 
 # Format the 'date' column to day-month-year format
-df['date'] = df['date'].apply(lambda x: x.strftime('%d-%m-%Y'))
+#df['date'] = df['date'].apply(lambda x: x.strftime('%d-%m-%Y'))
+df['date'] = pd.to_datetime(df['date'])
+df = df.sort_values('date',ascending=False)
 
 df_backs = df[df['position_codes'].str.contains('|'.join(['lb', 'rb']))]
-df_backsminutter = df_backs[['Player name','total_minutesOnField']]
-df_backsminutter = df_backsminutter.groupby(['Player name']).sum(numeric_only=True)
+df_backsminutter = df_backs[['Player name','Team name','total_minutesOnField']]
+df_backsminutter = df_backsminutter.groupby(['Player id']).sum(numeric_only=True)
 df_backsminutter = df_backsminutter[df_backsminutter['total_minutesOnField'] >= 300]
+
 df_Stoppere = df[df['position_codes'].str.contains('|'.join(['cb']))]
-df_stoppereminutter = df_Stoppere[['Player name','total_minutesOnField']]
-df_stoppereminutter = df_stoppereminutter.groupby(['Player name']).sum(numeric_only=True)
+df_stoppereminutter = df_Stoppere[['Player name','Team name','total_minutesOnField']]
+df_stoppereminutter = df_stoppereminutter.groupby(['Player id']).sum(numeric_only=True)
 df_stoppereminutter = df_stoppereminutter[df_stoppereminutter['total_minutesOnField'] >= 300]
+
 df_Centrale_midt = df[df['position_codes'].str.contains('|'.join(['cm','amf','dmf']))]
+df_centraleminutter = df_Centrale_midt[['Player name','Team name','total_minutesOnField']]
+df_centraleminutter = df_centraleminutter.groupby(['Player id']).sum(numeric_only=True)
+df_centraleminutter = df_centraleminutter[df_centraleminutter['total_minutesOnField'] >= 300]
+
 df_Kanter = df[df['position_codes'].str.contains('|'.join(['rw','lw','ramf','lamf']))]
 df_Angribere = df[df['position_codes'].str.contains('|'.join(['cf']))]
-df_angribereminutter = df_Angribere[['Player name','total_minutesOnField']]
-df_angribereminutter = df_angribereminutter.groupby(['Player name']).sum(numeric_only=True)
+df_angribereminutter = df_Angribere[['Player name','Team name','total_minutesOnField']]
+df_angribereminutter = df_angribereminutter.groupby(['Player id']).sum(numeric_only=True)
 df_angribereminutter = df_angribereminutter[df_angribereminutter['total_minutesOnField'] >= 300]
-st.dataframe(df_backsminutter)
-st.dataframe(df_angribereminutter)
 
-df_backs = pd.merge(df_backsminutter,df_backs,on=('Player name'))
+
+df_backs = pd.merge(df_backsminutter,df_backs,on=('Player id'))
+
 df_backs['Accurate crosses score'] = pd.qcut(df_backs['percent_successfulCrosses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_backs['Number of crosses score'] = pd.qcut(df_backs['average_crosses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_backs['XA score'] = pd.qcut(df_backs['average_xgAssist'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -126,7 +134,8 @@ df_backssæsonen ['Samlet'] = (df_backssæsonen['Indlægsstærk'] + df_backssæs
 df_backssæsonen = df_backssæsonen[['Indlægsstærk','1v1 færdigheder','Spilintelligens defensivt','Fart','Samlet']]
 df_backssæsonen = df_backssæsonen.round(3).astype(float)
 
-df_Stoppere = pd.merge(df_stoppereminutter,df_Stoppere,on=('Player name'))
+df_Stoppere = pd.merge(df_stoppereminutter,df_Stoppere,on=('Player id'))
+st.dataframe(df_Stoppere)
 df_Stoppere['Accurate passes score'] = pd.qcut(df_Stoppere['percent_successfulPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Stoppere['Accurate long passes score'] = pd.qcut(df_Stoppere['percent_successfulLongPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Stoppere['Forward passes score'] = pd.qcut(df_Stoppere['average_successfulForwardPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -143,16 +152,26 @@ df_Stoppere['Accurate through passes'] = pd.qcut(df_Stoppere['percent_successful
 df_Stoppere['Vertical passes'] = pd.qcut(df_Stoppere['average_successfulVerticalPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Stoppere['Through passes'] = pd.qcut(df_Stoppere['average_successfulThroughPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Stoppere['Passes to final third'] = pd.qcut(df_Stoppere['average_successfulPassesToFinalThird'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_Stoppere['Progressive runs'] = pd.qcut(df_Stoppere['average_progressiveRun'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_Stoppere['Offensive duels won %'] = pd.qcut(df_Stoppere['percent_newOffensiveDuelsWon'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_Stoppere['Successful dribbles %'] = pd.qcut(df_Stoppere['percent_newSuccessfulDribbles'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Stoppere['Progressive passes score'] = pd.qcut(df_Stoppere['average_successfulProgressivePasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Stoppere['Aerial duels won score'] = pd.qcut(df_Stoppere['average_fieldAerialDuelsWon'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Stoppere['Aerial duels won % score'] = pd.qcut(df_Stoppere['percent_aerialDuelsWon'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
-df_Stopperesæsonen = df_Stoppere[['Player name','Team name','total_minutesOnField_x','total_minutesOnField_y','Accurate passes score','Accurate long passes score','Forward passes score','Accurate forward passes score','Accurate progressive passes score','Accurate vertical passes score','Interceptions score','Succesful defensive actions score','Shots blocked score','Defensive duels won score','Defensive duels won % score','Accurate passes to final third','Accurate through passes','Vertical passes','Through passes','Passes to final third','Progressive passes score','Aerial duels won score','Aerial duels won % score']]
+
+
+df_Stopperesæsonen = df_Stoppere[['Player name','Team name','total_minutesOnField_x','total_minutesOnField_y','Accurate passes score','Accurate long passes score','Forward passes score','Accurate forward passes score','Accurate progressive passes score','Accurate vertical passes score','Interceptions score','Succesful defensive actions score','Shots blocked score','Defensive duels won score','Defensive duels won % score','Accurate passes to final third','Accurate through passes','Vertical passes','Through passes','Passes to final third','Progressive passes score','Aerial duels won score','Aerial duels won % score','Progressive runs','Offensive duels won %','Successful dribbles %']]
 df_Stopperesæsonen.rename(columns={'total_minutesOnField_x':'Total minutes'},inplace=True)
 df_Stopperesæsonen = df_Stopperesæsonen.groupby(['Player name','Team name','Total minutes']).mean(numeric_only=True)
 df_Stopperesæsonen['Pasningssikker'] = (df_Stopperesæsonen['Accurate passes score'] + df_Stopperesæsonen['Accurate long passes score'] + df_Stopperesæsonen['Forward passes score'] + df_Stopperesæsonen['Accurate forward passes score'] + df_Stopperesæsonen['Accurate progressive passes score'] + df_Stopperesæsonen['Accurate vertical passes score'])/6
-df_Stopperesæsonen = df_Stopperesæsonen['Pasningssikker']
+df_Stopperesæsonen['Spilintelligens defensivt'] = (df_Stopperesæsonen['Interceptions score'] + df_Stopperesæsonen['Succesful defensive actions score'] + df_Stopperesæsonen['Shots blocked score'] + df_Stopperesæsonen['Succesful defensive actions score'] + df_Stopperesæsonen['Defensive duels won % score']) /5
+df_Stopperesæsonen['Spilintelligens offensivt'] = (df_Stopperesæsonen['Forward passes score'] + df_Stopperesæsonen['Accurate forward passes score'] + df_Stopperesæsonen['Accurate passes to final third'] + df_Stopperesæsonen['Passes to final third'] + df_Stopperesæsonen['Accurate progressive passes score'] + df_Stopperesæsonen['Progressive passes score'] + df_Stopperesæsonen['Through passes'] + df_Stopperesæsonen['Accurate through passes']+ df_Stopperesæsonen['Progressive runs'] + df_Stopperesæsonen['Offensive duels won %'] + df_Stopperesæsonen['Successful dribbles %'])/11
+df_Stopperesæsonen['Nærkamps- og duelstærk'] = (df_Stopperesæsonen['Defensive duels won % score'] + df_Stopperesæsonen['Aerial duels won % score'] + df_Stopperesæsonen['Defensive duels won % score'])/3
+df_Stopperesæsonen['Samlet'] = (df_Stopperesæsonen['Pasningssikker'] + df_Stopperesæsonen['Spilintelligens defensivt'] + df_Stopperesæsonen['Spilintelligens offensivt'] + df_Stopperesæsonen['Nærkamps- og duelstærk'])/4
 
-df_Angribere = pd.merge(df_angribereminutter,df_Angribere,on=('Player name'))
+df_Stopperesæsonen = df_Stopperesæsonen[['Pasningssikker','Spilintelligens defensivt','Spilintelligens offensivt','Nærkamps- og duelstærk','Samlet']]
+
+df_Angribere = pd.merge(df_angribereminutter,df_Angribere,on=('Player id'))
 df_Angribere['xG per 90 score'] = pd.qcut(df_Angribere['average_xgShot'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Angribere['Goals per 90 score'] = pd.qcut(df_Angribere['average_goals'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)  
 df_Angribere['Shots on target, % score'] = pd.qcut(df_Angribere['percent_shotsOnTarget'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)   
@@ -180,5 +199,4 @@ st.dataframe(df_backs)
 st.dataframe(df_backssæsonen)
 st.dataframe(df_Stoppere)
 st.dataframe(df_Stopperesæsonen)
-st.dataframe(df_Angribere)
-st.dataframe(df_Angriberesæsonen)
+
