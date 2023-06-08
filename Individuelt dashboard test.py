@@ -2,7 +2,6 @@ from azure.storage.fileshare import ShareServiceClient
 import json
 import pandas as pd
 from pandas import json_normalize
-import numpy as np
 import ast
 
 connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2025-01-11T22:47:25Z&st=2022-01-11T14:47:25Z&spr=https&sig=CXdXPlHz%2FhW0IRugFTfCrB7osNQVZJ%2BHjNR1EM2s6RU%3D;FileEndpoint=https://divforeningendataout1.file.core.windows.net/;'
