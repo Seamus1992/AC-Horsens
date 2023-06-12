@@ -1773,7 +1773,7 @@ for item in json_files:
 # Convert the events_list to a DataFrame
 df = pd.DataFrame(events_list)
 df = df[['matchId','team','opponentTeam','player']]
-print('eventdata hentet')
+print('U15 eventdata hentet')
 json_files = []
 
 def find_json_files(directory_client):
@@ -1835,7 +1835,7 @@ df['matchId'] = df['matchId'].astype(str)
 df['Player id'] = df['Player id'].astype(str)
 df.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 eventdata alle.csv')
 
-print('Matchdetails hentet')
+print('U15 Matchdetails hentet')
 
 
 connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2025-01-11T22:47:25Z&st=2022-01-11T14:47:25Z&spr=https&sig=CXdXPlHz%2FhW0IRugFTfCrB7osNQVZJ%2BHjNR1EM2s6RU%3D;FileEndpoint=https://divforeningendataout1.file.core.windows.net/;'
@@ -1904,7 +1904,7 @@ for item in json_files:
 # Convert the events_list to a DataFrame
 df = pd.DataFrame(events_list)
 df = df[['matchId','team','opponentTeam','player']]
-print('eventdata hentet')
+print('U17 eventdata hentet')
 json_files = []
 
 def find_json_files(directory_client):
