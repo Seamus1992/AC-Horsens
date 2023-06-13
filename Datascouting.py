@@ -2810,11 +2810,11 @@ def Tredje_division ():
     st.write('Angribere')
     st.dataframe(df_Angriberesæsonen)
 
-Ligaer = {'U15 ligaen':U15_liga,
-          'U17 ligaen':U17_liga,
-          'U19 ligaen':U19_liga,
-          'U17 divisionen':U17_Division,
-          'U19 divisionen':U19_Division,
+Ligaer = {'U15 Ligaen':U15_liga,
+          'U17 Ligaen':U17_liga,
+          'U19 Ligaen':U19_liga,
+          'U17 Divisionen':U17_Division,
+          'U19 Divisionen':U19_Division,
           'Superligaen':Superliga,
           '1. Division':Første_division,
           '2. Division':Anden_division,
