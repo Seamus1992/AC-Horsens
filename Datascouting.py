@@ -88,28 +88,28 @@ def U15_liga ():
 
     df_backs = df[df['position_codes'].str.contains('|'.join(['lb', 'rb']))]
     df_backsminutter = df_backs[['Player name','Team name','total_minutesOnField']]
-    df_backsminutter = df_backsminutter.groupby(['Player id','Team name']).sum(numeric_only=True)
+    df_backsminutter = df_backsminutter.groupby(['Player id']).sum(numeric_only=True)
     df_backsminutter = df_backsminutter[df_backsminutter['total_minutesOnField'] >= 300]
 
     df_Stoppere = df[df['position_codes'].str.contains('|'.join(['cb']))]
     df_stoppereminutter = df_Stoppere[['Player name','Team name','total_minutesOnField']]
-    df_stoppereminutter = df_stoppereminutter.groupby(['Player id','Team name']).sum(numeric_only=True)
+    df_stoppereminutter = df_stoppereminutter.groupby(['Player id']).sum(numeric_only=True)
     df_stoppereminutter = df_stoppereminutter[df_stoppereminutter['total_minutesOnField'] >= 300]
 
     df_Centrale_midt = df[df['position_codes'].str.contains('|'.join(['cm','amf','dmf']))]
     df_centraleminutter = df_Centrale_midt[['Player name','Team name','total_minutesOnField']]
-    df_centraleminutter = df_centraleminutter.groupby(['Player id','Team name']).sum(numeric_only=True)
+    df_centraleminutter = df_centraleminutter.groupby(['Player id']).sum(numeric_only=True)
     df_centraleminutter = df_centraleminutter[df_centraleminutter['total_minutesOnField'] >= 300]
 
     df_Kanter = df[df['position_codes'].str.contains('|'.join(['rw','lw','ramf','lamf']))]
     df_kanterminutter = df_Kanter[['Player name','Team name','total_minutesOnField']]
-    df_kanterminutter = df_kanterminutter.groupby(['Player id','Team name']).sum(numeric_only=True)
+    df_kanterminutter = df_kanterminutter.groupby(['Player id']).sum(numeric_only=True)
     df_kanterminutter = df_kanterminutter[df_kanterminutter['total_minutesOnField'] >=300]
 
 
     df_Angribere = df[df['position_codes'].str.contains('|'.join(['cf']))]
     df_angribereminutter = df_Angribere[['Player name','Team name','total_minutesOnField']]
-    df_angribereminutter = df_angribereminutter.groupby(['Player id','Team name']).sum(numeric_only=True)
+    df_angribereminutter = df_angribereminutter.groupby(['Player id']).sum(numeric_only=True)
     df_angribereminutter = df_angribereminutter[df_angribereminutter['total_minutesOnField'] >= 300]
 
 
@@ -1646,28 +1646,28 @@ def Superliga ():
 
     df_backs = df[df['position_codes'].str.contains('|'.join(['lb', 'rb']))]
     df_backsminutter = df_backs[['Player name','Team name','total_minutesOnField']]
-    df_backsminutter = df_backsminutter.groupby(['Player id','Team name']).sum(numeric_only=True)
+    df_backsminutter = df_backsminutter.groupby(['Player id']).sum(numeric_only=True)
     df_backsminutter = df_backsminutter[df_backsminutter['total_minutesOnField'] >= 300]
 
     df_Stoppere = df[df['position_codes'].str.contains('|'.join(['cb']))]
     df_stoppereminutter = df_Stoppere[['Player name','Team name','total_minutesOnField']]
-    df_stoppereminutter = df_stoppereminutter.groupby(['Player id','Team name']).sum(numeric_only=True)
+    df_stoppereminutter = df_stoppereminutter.groupby(['Player id']).sum(numeric_only=True)
     df_stoppereminutter = df_stoppereminutter[df_stoppereminutter['total_minutesOnField'] >= 300]
 
     df_Centrale_midt = df[df['position_codes'].str.contains('|'.join(['cm','amf','dmf']))]
     df_centraleminutter = df_Centrale_midt[['Player name','Team name','total_minutesOnField']]
-    df_centraleminutter = df_centraleminutter.groupby(['Player id','Team name']).sum(numeric_only=True)
+    df_centraleminutter = df_centraleminutter.groupby(['Player id']).sum(numeric_only=True)
     df_centraleminutter = df_centraleminutter[df_centraleminutter['total_minutesOnField'] >= 300]
 
     df_Kanter = df[df['position_codes'].str.contains('|'.join(['rw','lw','ramf','lamf']))]
     df_kanterminutter = df_Kanter[['Player name','Team name','total_minutesOnField']]
-    df_kanterminutter = df_kanterminutter.groupby(['Player id','Team name']).sum(numeric_only=True)
+    df_kanterminutter = df_kanterminutter.groupby(['Player id']).sum(numeric_only=True)
     df_kanterminutter = df_kanterminutter[df_kanterminutter['total_minutesOnField'] >=300]
 
 
     df_Angribere = df[df['position_codes'].str.contains('|'.join(['cf']))]
     df_angribereminutter = df_Angribere[['Player name','Team name','total_minutesOnField']]
-    df_angribereminutter = df_angribereminutter.groupby(['Player id','Team name']).sum(numeric_only=True)
+    df_angribereminutter = df_angribereminutter.groupby(['Player id']).sum(numeric_only=True)
     df_angribereminutter = df_angribereminutter[df_angribereminutter['total_minutesOnField'] >= 300]
 
 
