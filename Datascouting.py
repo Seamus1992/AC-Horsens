@@ -5,10 +5,10 @@ from pandas import json_normalize
 import ast
 from dateutil import parser
 def U15_liga ():
-    df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard U15.csv')
+    df = pd.read_csv('Individuelt dashboard U15.csv')
     df.rename(columns={'playerId': 'Player id'}, inplace=True)
     df = df.astype(str)
-    dfevents = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 eventdata alle.csv',low_memory=False)
+    dfevents = pd.read_csv('U15 eventdata alle.csv',low_memory=False)
     dfevents = dfevents[['Player id','Player name','team_name','label','date','matchId']]
     dfspillernavn = df[['Player id','matchId','positions','average','percent','total']]
     dfspillernavn = dfspillernavn.astype(str)
@@ -316,10 +316,10 @@ def U15_liga ():
     st.dataframe(df_Angriberesæsonen)
 
 def U17_liga ():
-    df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard U17.csv')
+    df = pd.read_csv('Individuelt dashboard U17.csv')
     df.rename(columns={'playerId': 'Player id'}, inplace=True)
     df = df.astype(str)
-    dfevents = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 eventdata alle.csv',low_memory=False)
+    dfevents = pd.read_csv('U17 eventdata alle.csv',low_memory=False)
     dfevents = dfevents[['Player id','Player name','team_name','label','date','matchId']]
     dfspillernavn = df[['Player id','matchId','positions','average','percent','total']]
     dfspillernavn = dfspillernavn.astype(str)
@@ -627,10 +627,10 @@ def U17_liga ():
     st.dataframe(df_Angriberesæsonen)
 
 def U19_liga ():
-    df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard U19.csv')
+    df = pd.read_csv('Individuelt dashboard U19.csv')
     df.rename(columns={'playerId': 'Player id'}, inplace=True)
     df = df.astype(str)
-    dfevents = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 eventdata alle.csv',low_memory=False)
+    dfevents = pd.read_csv('U19 eventdata alle.csv',low_memory=False)
     dfevents = dfevents[['Player id','Player name','team_name','label','date','matchId']]
     dfspillernavn = df[['Player id','matchId','positions','average','percent','total']]
     dfspillernavn = dfspillernavn.astype(str)
@@ -940,10 +940,10 @@ def U19_liga ():
     st.dataframe(df_Angriberesæsonen)
 
 def U19_Division ():
-    df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard U19 div.csv')
+    df = pd.read_csv('Individuelt dashboard U19 div.csv')
     df.rename(columns={'playerId': 'Player id'}, inplace=True)
     df = df.astype(str)
-    dfevents = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 div eventdata alle.csv',low_memory=False)
+    dfevents = pd.read_csv('U19 div eventdata alle.csv',low_memory=False)
     dfevents = dfevents[['Player id','Player name','team_name','label','date','matchId']]
     dfspillernavn = df[['Player id','matchId','positions','average','percent','total']]
     dfspillernavn = dfspillernavn.astype(str)
@@ -1251,10 +1251,10 @@ def U19_Division ():
     st.dataframe(df_Angriberesæsonen)
 
 def U17_Division ():
-    df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard U17 div.csv')
+    df = pd.read_csv('Individuelt dashboard U17 div.csv')
     df.rename(columns={'playerId': 'Player id'}, inplace=True)
     df = df.astype(str)
-    dfevents = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 div eventdata alle.csv',low_memory=False)
+    dfevents = pd.read_csv('U17 div eventdata alle.csv',low_memory=False)
     dfevents = dfevents[['Player id','Player name','team_name','label','date','matchId']]
     dfspillernavn = df[['Player id','matchId','positions','average','percent','total']]
     dfspillernavn = dfspillernavn.astype(str)
@@ -1563,10 +1563,10 @@ def U17_Division ():
     st.dataframe(df_Angriberesæsonen)
 
 def Superliga ():
-    df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard Superliga.csv')
+    df = pd.read_csv('Individuelt dashboard Superliga.csv')
     df.rename(columns={'playerId': 'Player id'}, inplace=True)
     df = df.astype(str)
-    dfevents = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Superliga eventdata alle.csv',low_memory=False)
+    dfevents = pd.read_csv('Superliga eventdata alle.csv',low_memory=False)
     dfevents = dfevents[['Player id','Player name','team_name','label','date','matchId']]
     dfspillernavn = df[['Player id','matchId','positions','average','percent','total']]
     dfspillernavn = dfspillernavn.astype(str)
@@ -1874,10 +1874,10 @@ def Superliga ():
     st.dataframe(df_Angriberesæsonen)
 
 def Første_division ():
-    df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard 1.div.csv')
+    df = pd.read_csv('Individuelt dashboard 1.div.csv')
     df.rename(columns={'playerId': 'Player id'}, inplace=True)
     df = df.astype(str)
-    dfevents = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\1.div eventdata alle.csv',low_memory=False)
+    dfevents = pd.read_csv('1.div eventdata alle.csv',low_memory=False)
     dfevents = dfevents[['Player id','Player name','team_name','label','date','matchId']]
     dfspillernavn = df[['Player id','matchId','positions','average','percent','total']]
     dfspillernavn = dfspillernavn.astype(str)
@@ -2186,10 +2186,10 @@ def Første_division ():
     st.dataframe(df_Angriberesæsonen)
 
 def Anden_division ():
-    df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard 2.div.csv')
+    df = pd.read_csv('Individuelt dashboard 2.div.csv')
     df.rename(columns={'playerId': 'Player id'}, inplace=True)
     df = df.astype(str)
-    dfevents = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\2.div eventdata alle.csv',low_memory=False)
+    dfevents = pd.read_csv('2.div eventdata alle.csv',low_memory=False)
     dfevents = dfevents[['Player id','Player name','team_name','label','date','matchId']]
     dfspillernavn = df[['Player id','matchId','positions','average','percent','total']]
     dfspillernavn = dfspillernavn.astype(str)
@@ -2498,10 +2498,10 @@ def Anden_division ():
     st.dataframe(df_Angriberesæsonen)
 
 def Tredje_division ():
-    df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard 3.div.csv')
+    df = pd.read_csv('Individuelt dashboard 3.div.csv')
     df.rename(columns={'playerId': 'Player id'}, inplace=True)
     df = df.astype(str)
-    dfevents = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\3.div eventdata alle.csv',low_memory=False)
+    dfevents = pd.read_csv('3.div eventdata alle.csv',low_memory=False)
     dfevents = dfevents[['Player id','Player name','team_name','label','date','matchId']]
     dfspillernavn = df[['Player id','matchId','positions','average','percent','total']]
     dfspillernavn = dfspillernavn.astype(str)
