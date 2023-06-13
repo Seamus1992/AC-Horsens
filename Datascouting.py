@@ -1646,7 +1646,7 @@ def Superliga ():
 
     df_backs = df[df['position_codes'].str.contains('|'.join(['lb', 'rb']))]
     df_backsminutter = df_backs[['Player name','Team name','total_minutesOnField']]
-    df_backsminutter = df_backsminutter.groupby(['Player id','Team name','total_minutesOnField']).sum(numeric_only=True)
+    df_backsminutter = df_backsminutter.groupby(['Player id','Team name']).sum(numeric_only=True)
     df_backsminutter = df_backsminutter[df_backsminutter['total_minutesOnField'] >= 300]
 
     df_Stoppere = df[df['position_codes'].str.contains('|'.join(['cb']))]
