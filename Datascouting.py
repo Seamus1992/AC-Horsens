@@ -4,8 +4,9 @@ import json
 from pandas import json_normalize
 import ast
 from dateutil import parser
+st.set_page_config(layout = 'wide')
+
 def U15_liga ():
-    st.set_page_config(layout = 'wide')
     df = pd.read_csv('Individuelt dashboard U15.csv')
     df.rename(columns={'playerId': 'Player id'}, inplace=True)
     df = df.astype(str)
