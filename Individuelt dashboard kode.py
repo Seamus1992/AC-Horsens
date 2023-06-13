@@ -139,7 +139,7 @@ df_backssæsonen ['Samlet'] = (df_backssæsonen['Indlægsstærk'] + df_backssæs
 
 df_backssæsonen = df_backssæsonen[['Indlægsstærk','1v1 færdigheder','Spilintelligens defensivt','Fart','Samlet']]
 df_backssæsonen = df_backssæsonen.round(3).astype(float)
-
+df_backssæsonen = df_backssæsonen.sort_values(by='Samlet',ascending=False)
 df_Stoppere = pd.merge(df_stoppereminutter,df_Stoppere,on=('Player id'))
 df_Stoppere = df_Stoppere[df_Stoppere['total_minutesOnField_y'] >=17]
 
@@ -176,6 +176,7 @@ df_Stopperesæsonen['Nærkamps- og duelstærk'] = (df_Stopperesæsonen['Defensiv
 df_Stopperesæsonen['Samlet'] = (df_Stopperesæsonen['Pasningssikker'] + df_Stopperesæsonen['Spilintelligens defensivt'] + df_Stopperesæsonen['Spilintelligens offensivt'] + df_Stopperesæsonen['Nærkamps- og duelstærk'])/4
 
 df_Stopperesæsonen = df_Stopperesæsonen[['Pasningssikker','Spilintelligens defensivt','Spilintelligens offensivt','Nærkamps- og duelstærk','Samlet']]
+df_Stopperesæsonen = df_Stopperesæsonen.sort_values(by='Samlet',ascending=False)
 
 df_Centrale_midt = pd.merge(df_centraleminutter,df_Centrale_midt,on=('Player id'))
 df_Centrale_midt = df_Centrale_midt[df_Centrale_midt['total_minutesOnField_y'] >=17]
@@ -217,6 +218,7 @@ df_Centrale_midtsæsonen['Spilintelligens defensivt'] = (df_Centrale_midtsæsone
 df_Centrale_midtsæsonen['Samlet'] = (df_Centrale_midtsæsonen['Pasningssikker/Spilvendinger'] + df_Centrale_midtsæsonen['Boldfast'] + df_Centrale_midtsæsonen['Spilintelligens defensivt'])/3
 
 df_Centrale_midtsæsonen = df_Centrale_midtsæsonen[['Pasningssikker/Spilvendinger','Boldfast','Spilintelligens defensivt','Samlet']]
+df_Centrale_midtsæsonen = df_Centrale_midtsæsonen.sort_values(by='Samlet',ascending=False)
 
 df_Kanter = pd.merge(df_kanterminutter,df_Kanter,on=('Player id'))
 df_Kanter = df_Kanter[df_Kanter['total_minutesOnField_y'] >=17]
@@ -261,6 +263,8 @@ df_Kantersæsonen['Spilintelligens offensivt/indlægsstærk'] = (df_Kantersæson
 df_Kantersæsonen['1v1 offensivt'] = (df_Kantersæsonen['Successful dribbles #'] + df_Kantersæsonen['Successful dribbles %'] + df_Kantersæsonen['Offensive duels #'] + df_Kantersæsonen['Offensive duels %'] + df_Kantersæsonen['Progressive runs'])/5
 df_Kantersæsonen['Fart'] = (df_Kantersæsonen['Progressive runs'] + df_Kantersæsonen['Successful dribbles #'] + df_Kantersæsonen['Successful dribbles %'] + df_Kantersæsonen['Accelerations score'])/5
 df_Kantersæsonen['Samlet'] = (df_Kantersæsonen['Sparkefærdigheder'] + df_Kantersæsonen['Kombinationsstærk'] + df_Kantersæsonen['Spilintelligens offensivt/indlægsstærk'] + df_Kantersæsonen['1v1 offensivt'] + df_Kantersæsonen['Fart'])/5
+df_Kantersæsonen = df_Kantersæsonen[['Sparkefærdigheder','Kombinationsstærk','Spilintelligens offensivt/indlægsstærk','1v1 offensivt','Fart','Samlet']]
+df_Kantersæsonen = df_Kantersæsonen.sort_values(by='Samlet',ascending=False)
 
 
 df_Angribere = pd.merge(df_angribereminutter,df_Angribere,on=('Player id'))
@@ -277,26 +281,35 @@ df_Angribere['Accurate passes, % score'] = pd.qcut(df_Angribere['percent_success
 df_Angribere['Successful dribbles, % score'] = pd.qcut(df_Angribere['percent_newSuccessfulDribbles'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Angribere['xA per 90 score'] = pd.qcut(df_Angribere['average_xgAssist'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Angribere['Touches in box per 90 score'] = pd.qcut(df_Angribere['average_touchInBox'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_Angribere['Progressive runs'] = pd.qcut(df_Angribere['average_progressiveRun'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+df_Angribere['Accelerations score'] = pd.qcut(df_Angribere['average_accelerations'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Angribere['Progressive passes per 90 score'] = pd.qcut(df_Angribere['average_successfulProgressivePasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 df_Angribere['Successful attacking actions per 90 score'] = pd.qcut(df_Angribere['average_successfulAttackingActions'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
-df_Angriberesæsonen = df_Angribere[['Player name','Team name','total_minutesOnField_x','total_minutesOnField_y','xG per 90 score','Goals per 90 score','Shots on target, % score','Offensive duels won, % score','Duels won, % score','Accurate passes, % score','Successful dribbles, % score','xA per 90 score','Touches in box per 90 score','Progressive passes per 90 score','Successful attacking actions per 90 score','Målfarlighed score']]
-df_Angriberesæsonen.rename(columns={'total_minutesOnField_x':'Total minutes'},inplace=True)
-df_Angriberesæsonen = df_Angriberesæsonen.groupby(['Player name','Team name','Total minutes']).mean(numeric_only=True)
+df_Angribere['Successful dribbles #'] = pd.qcut(df_Angribere['average_newSuccessfulDribbles'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
+
+df_Angriberesæsonen = df_Angribere.rename(columns={'total_minutesOnField_x':'Total minutes'},inplace=True)
+df_Angriberesæsonen = df_Angribere.groupby(['Player name','Team name','Total minutes']).mean(numeric_only=True)
 
 df_Angriberesæsonen['Sparkefærdigheder'] = (df_Angriberesæsonen['xG per 90 score'] + df_Angriberesæsonen['xG per 90 score'] + df_Angriberesæsonen['Goals per 90 score'] + df_Angriberesæsonen['Shots on target, % score'])/4
 df_Angriberesæsonen['Boldfast'] = (df_Angriberesæsonen['Offensive duels won, % score'] + df_Angriberesæsonen['Offensive duels won, % score'] + df_Angriberesæsonen['Duels won, % score'] + df_Angriberesæsonen['Accurate passes, % score'] + df_Angriberesæsonen['Successful dribbles, % score'])/5
 df_Angriberesæsonen['Spilintelligens offensivt'] = (df_Angriberesæsonen['xA per 90 score'] + df_Angriberesæsonen['xG per 90 score'] + df_Angriberesæsonen['Touches in box per 90 score'] + df_Angriberesæsonen['Progressive passes per 90 score'] + df_Angriberesæsonen['Successful attacking actions per 90 score'] + df_Angriberesæsonen['Touches in box per 90 score'] + df_Angriberesæsonen['xG per 90 score'])/7
 df_Angriberesæsonen['Målfarlighed'] = (df_Angriberesæsonen['xG per 90 score']+df_Angriberesæsonen['Goals per 90 score']+df_Angriberesæsonen['xG per 90 score'] + df_Angriberesæsonen['Målfarlighed score'])/4
-df_Angriberesæsonen = df_Angriberesæsonen[['Sparkefærdigheder','Boldfast','Spilintelligens offensivt','Målfarlighed']]
-df_Angriberesæsonen['Samlet'] = (df_Angriberesæsonen['Sparkefærdigheder']+df_Angriberesæsonen['Boldfast']+df_Angriberesæsonen['Spilintelligens offensivt']+df_Angriberesæsonen['Målfarlighed'])/4
+df_Angriberesæsonen['Fart'] = (df_Angriberesæsonen['Progressive runs'] + + df_Angriberesæsonen['Progressive runs'] + df_Angriberesæsonen['Progressive runs'] + df_Angriberesæsonen['Successful dribbles #'] + df_Angriberesæsonen['Successful dribbles, % score'] + df_Angriberesæsonen['Accelerations score'] + df_Angriberesæsonen['Offensive duels won, % score'])/7
+df_Angriberesæsonen = df_Angriberesæsonen[['Sparkefærdigheder','Boldfast','Spilintelligens offensivt','Målfarlighed','Fart']]
+df_Angriberesæsonen['Samlet'] = (df_Angriberesæsonen['Sparkefærdigheder']+df_Angriberesæsonen['Boldfast']+df_Angriberesæsonen['Spilintelligens offensivt']+df_Angriberesæsonen['Målfarlighed']+df_Angriberesæsonen['Målfarlighed']+df_Angriberesæsonen['Målfarlighed']+df_Angriberesæsonen['Fart'])/7
+df_Angriberesæsonen = df_Angriberesæsonen.sort_values(by='Samlet',ascending=False)
 
-#st.dataframe(df_backs)
+
+st.write('Backs')
 st.dataframe(df_backssæsonen)
+st.write('Stoppere')
 st.dataframe(df_Stopperesæsonen)
+st.write('Central midt')
 #st.dataframe(df_Centrale_midt)
 st.dataframe(df_Centrale_midtsæsonen)
 #st.dataframe(df_Kanter)
+st.write('Kanter')
 st.dataframe(df_Kantersæsonen)
 #st.dataframe(df_Angribere)
+st.write('Angribere')
 st.dataframe(df_Angriberesæsonen)
-
