@@ -5,6 +5,7 @@ from pandas import json_normalize
 import ast
 from dateutil import parser
 import plotly.graph_objects as go
+st.set_page_config(layout = 'wide')
 
 def U15():
     navne = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Navne.xlsx')
@@ -133,19 +134,39 @@ def U15():
     df_backs['Duels won score'] = pd.qcut(df_backs['percent_newDuelsWon'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
     df_backs['Interceptions score'] = pd.qcut(df_backs['average_interceptions'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
     df_backs['Successful defensive actions score'] = pd.qcut(df_backs['average_successfulDefensiveAction'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
-    df_backssæsonen = df_backs[['Player name','Team name','total_minutesOnField_x','total_minutesOnField_y','Number of crosses score','Accurate crosses score','XA score','Passes to final third score','Successful dribbles score','Defensive duels won score','Progressive runs score','Offensive duels won score','Accelerations score','Duels won score','Interceptions score','Successful defensive actions score']]
+    df_backssæsonen = df_backs[['Player name','Team name','label','total_minutesOnField_x','total_minutesOnField_y','Number of crosses score','Accurate crosses score','XA score','Passes to final third score','Successful dribbles score','Defensive duels won score','Progressive runs score','Offensive duels won score','Accelerations score','Duels won score','Interceptions score','Successful defensive actions score']]
     df_backssæsonen.rename(columns={'total_minutesOnField_x':'Total minutes'},inplace=True)
-    df_backssæsonen = df_backssæsonen.groupby(['Player name','Team name','Total minutes']).mean(numeric_only=True)
+    df_backssæsonen = df_backssæsonen.groupby(['Player name','Team name','Total minutes','label']).mean(numeric_only=True)
 
     df_backssæsonen['Indlægsstærk'] = (df_backssæsonen['Number of crosses score'] + df_backssæsonen['Accurate crosses score'] + df_backssæsonen['XA score'] + df_backssæsonen['Passes to final third score'])/4
     df_backssæsonen['1v1 færdigheder'] = (df_backssæsonen['Successful dribbles score'] + df_backssæsonen['Defensive duels won score'] + df_backssæsonen['Progressive runs score'] + df_backssæsonen['Offensive duels won score'] + df_backssæsonen['Accelerations score'] + df_backssæsonen['Duels won score'])/6
     df_backssæsonen['Spilintelligens defensivt'] = (df_backssæsonen['Interceptions score'] + df_backssæsonen['Successful defensive actions score'] + df_backssæsonen['Duels won score'] + df_backssæsonen['Defensive duels won score'])/4
     df_backssæsonen['Fart'] = (df_backssæsonen['Successful dribbles score'] + df_backssæsonen['Progressive runs score'] + df_backssæsonen['Offensive duels won score'] + df_backssæsonen['Accelerations score'])/4
     df_backssæsonen ['Samlet'] = (df_backssæsonen['Indlægsstærk'] + df_backssæsonen['1v1 færdigheder'] + df_backssæsonen['Spilintelligens defensivt'] + df_backssæsonen['Fart'])/4
-
     df_backssæsonen = df_backssæsonen[['Indlægsstærk','1v1 færdigheder','Spilintelligens defensivt','Fart','Samlet']]
-    df_backssæsonen = df_backssæsonen.round(3).astype(float)
     df_backssæsonen = df_backssæsonen.sort_values(by='Samlet',ascending=False)
+
+    df_backs['Indlægsstærk'] = (df_backs['Number of crosses score'] + df_backs['Accurate crosses score'] + df_backs['XA score'] + df_backs['Passes to final third score'])/4
+    df_backs['1v1 færdigheder'] = (df_backs['Successful dribbles score'] + df_backs['Defensive duels won score'] + df_backs['Progressive runs score'] + df_backs['Offensive duels won score'] + df_backs['Accelerations score'] + df_backs['Duels won score'])/6
+    df_backs['Spilintelligens defensivt'] = (df_backs['Interceptions score'] + df_backs['Successful defensive actions score'] + df_backs['Duels won score'] + df_backs['Defensive duels won score'])/4
+    df_backs['Fart'] = (df_backs['Successful dribbles score'] + df_backs['Progressive runs score'] + df_backs['Offensive duels won score'] + df_backs['Accelerations score'])/4
+    df_backs['Samlet'] = (df_backs['Indlægsstærk'] + df_backs['1v1 færdigheder'] + df_backs['Spilintelligens defensivt'] + df_backs['Fart'])/4
+
+
+    df_backs = df_backs[['Player name','Team name','label','total_minutesOnField_y','Indlægsstærk','1v1 færdigheder','Spilintelligens defensivt','Fart','Samlet']]
+    df_backs = df_backs.sort_values(by='Samlet',ascending=False)
+    
+    df_backs = navne.merge(df_Stoppere)
+    df_backs = df_backs.drop('Player Name',axis=1)
+    df_backs = df_backs.drop('Player name',axis=1)    
+    df_backssæsonen = df_backssæsonen.reset_index()
+    df_backssæsonen = navne.merge(df_backssæsonen)
+    df_backs = navne.merge(df_backs)
+    df_backssæsonen = df_backssæsonen.drop('Player Name',axis=1)
+    df_backssæsonen = df_backssæsonen.drop('Player name',axis=1)
+    df_backssæsonen = df_backssæsonen.drop('label',axis=1)
+
+
     df_Stoppere = pd.merge(df_stoppereminutter,df_Stoppere,on=('Player id'))
     df_Stoppere = df_Stoppere[df_Stoppere['total_minutesOnField_y'] >=17]
 
@@ -172,9 +193,8 @@ def U15():
     df_Stoppere['Aerial duels won score'] = pd.qcut(df_Stoppere['average_fieldAerialDuelsWon'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
     df_Stoppere['Aerial duels won % score'] = pd.qcut(df_Stoppere['percent_aerialDuelsWon'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 
-    df_Stopperesæsonen = df_Stoppere[['Player name','Team name','total_minutesOnField_x','total_minutesOnField_y','Accurate passes score','Accurate long passes score','Forward passes score','Accurate forward passes score','Accurate progressive passes score','Accurate vertical passes score','Interceptions score','Succesful defensive actions score','Shots blocked score','Defensive duels won score','Defensive duels won % score','Accurate passes to final third','Accurate through passes','Vertical passes','Through passes','Passes to final third','Progressive passes score','Aerial duels won score','Aerial duels won % score','Progressive runs','Offensive duels won %','Successful dribbles %']]
-    df_Stopperesæsonen.rename(columns={'total_minutesOnField_x':'Total minutes'},inplace=True)
-    df_Stopperesæsonen = df_Stopperesæsonen.groupby(['Player name','Team name','Total minutes']).mean(numeric_only=True)
+    df_Stopperesæsonen = df_Stoppere.rename(columns={'total_minutesOnField_x':'Total minutes'},inplace=True)
+    df_Stopperesæsonen = df_Stoppere.groupby(['Player name','Team name','Total minutes','label']).mean(numeric_only=True)
     df_Stopperesæsonen['Pasningssikker'] = (df_Stopperesæsonen['Accurate passes score'] + df_Stopperesæsonen['Accurate long passes score'] + df_Stopperesæsonen['Forward passes score'] + df_Stopperesæsonen['Accurate forward passes score'] + df_Stopperesæsonen['Accurate progressive passes score'] + df_Stopperesæsonen['Accurate vertical passes score'])/6
     df_Stopperesæsonen['Spilintelligens defensivt'] = (df_Stopperesæsonen['Interceptions score'] + df_Stopperesæsonen['Succesful defensive actions score'] + df_Stopperesæsonen['Shots blocked score'] + df_Stopperesæsonen['Succesful defensive actions score'] + df_Stopperesæsonen['Defensive duels won % score']) /5
     df_Stopperesæsonen['Spilintelligens offensivt'] = (df_Stopperesæsonen['Forward passes score'] + df_Stopperesæsonen['Accurate forward passes score'] + df_Stopperesæsonen['Accurate passes to final third'] + df_Stopperesæsonen['Passes to final third'] + df_Stopperesæsonen['Accurate progressive passes score'] + df_Stopperesæsonen['Progressive passes score'] + df_Stopperesæsonen['Through passes'] + df_Stopperesæsonen['Accurate through passes']+ df_Stopperesæsonen['Progressive runs'] + df_Stopperesæsonen['Offensive duels won %'] + df_Stopperesæsonen['Successful dribbles %'])/11
@@ -183,6 +203,27 @@ def U15():
 
     df_Stopperesæsonen = df_Stopperesæsonen[['Pasningssikker','Spilintelligens defensivt','Spilintelligens offensivt','Nærkamps- og duelstærk','Samlet']]
     df_Stopperesæsonen = df_Stopperesæsonen.sort_values(by='Samlet',ascending=False)
+
+    df_Stoppere = df_Stoppere[df_Stoppere['Team name'].str.contains('Horsens')]
+    df_Stoppere['Pasningssikker'] = (df_Stoppere['Accurate passes score'] + df_Stoppere['Accurate long passes score'] + df_Stoppere['Forward passes score'] + df_Stoppere['Accurate forward passes score'] + df_Stoppere['Accurate progressive passes score'] + df_Stoppere['Accurate vertical passes score'])/6    
+    df_Stoppere['Spilintelligens defensivt'] = (df_Stoppere['Interceptions score'] + df_Stoppere['Succesful defensive actions score'] + df_Stoppere['Shots blocked score'] + df_Stoppere['Succesful defensive actions score'] + df_Stoppere['Defensive duels won % score']) /5
+    df_Stoppere['Spilintelligens offensivt'] = (df_Stoppere['Forward passes score'] + df_Stoppere['Accurate forward passes score'] + df_Stoppere['Accurate passes to final third'] + df_Stoppere['Passes to final third'] + df_Stoppere['Accurate progressive passes score'] + df_Stoppere['Progressive passes score'] + df_Stoppere['Through passes'] + df_Stoppere['Accurate through passes']+ df_Stoppere['Progressive runs'] + df_Stoppere['Offensive duels won %'] + df_Stoppere['Successful dribbles %'])/11
+    df_Stoppere['Nærkamps- og duelstærk'] = (df_Stoppere['Defensive duels won % score'] + df_Stoppere['Aerial duels won % score'] + df_Stoppere['Defensive duels won % score'])/3
+    df_Stoppere['Samlet'] = (df_Stoppere['Pasningssikker'] + df_Stoppere['Spilintelligens defensivt'] + df_Stoppere['Spilintelligens offensivt'] + df_Stoppere['Nærkamps- og duelstærk'])/4
+    df_Stoppere = df_Stoppere[['Player name','Team name','label','total_minutesOnField_y','Pasningssikker','Spilintelligens defensivt','Spilintelligens offensivt','Nærkamps- og duelstærk','Samlet']]
+    df_Stoppere = df_Stoppere.sort_values(by='Samlet',ascending=False)
+
+
+    df_Stoppere = navne.merge(df_Stoppere)
+    df_Stoppere = df_Stoppere.drop('Player Name',axis=1)
+    df_Stoppere = df_Stoppere.drop('Player name',axis=1)    
+    df_Stopperesæsonen = df_Stopperesæsonen.reset_index()
+    df_Stopperesæsonen = navne.merge(df_Stopperesæsonen)
+    df_Stoppere = navne.merge(df_Stoppere)
+    df_Stopperesæsonen = df_Stopperesæsonen.drop('Player Name',axis=1)
+    df_Stopperesæsonen = df_Stopperesæsonen.drop('Player name',axis=1)
+    df_Stopperesæsonen = df_Stopperesæsonen.drop('label',axis=1)
+
 
     df_Centrale_midt = pd.merge(df_centraleminutter,df_Centrale_midt,on=('Player id'))
     df_Centrale_midt = df_Centrale_midt[df_Centrale_midt['total_minutesOnField_y'] >=17]
@@ -217,18 +258,35 @@ def U15():
     df_Centrale_midt['Defensive duels won %'] = pd.qcut(df_Centrale_midt['percent_newDefensiveDuelsWon'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
 
     df_Centrale_midtsæsonen = df_Centrale_midt.rename(columns={'total_minutesOnField_x':'Total minutes'},inplace=True)
-    df_Centrale_midtsæsonen = df_Centrale_midt.groupby(['Player name','Team name','Total minutes']).mean(numeric_only=True)
+    df_Centrale_midtsæsonen = df_Centrale_midt.groupby(['Player name','Team name','Total minutes','label']).mean(numeric_only=True)
     df_Centrale_midtsæsonen['Pasningssikker/Spilvendinger'] = (df_Centrale_midtsæsonen['Passes %'] + df_Centrale_midtsæsonen['Passes #'] + df_Centrale_midtsæsonen['Forward Passes %'] + df_Centrale_midtsæsonen['Forward Passes #'] + df_Centrale_midtsæsonen['Long Passes %'] + df_Centrale_midtsæsonen['Long Passes #']+ df_Centrale_midtsæsonen['Smart passes %'] + df_Centrale_midtsæsonen['Smart passes #'] + + df_Centrale_midtsæsonen['Key passes %'] + df_Centrale_midtsæsonen['Key passes #'] + df_Centrale_midtsæsonen['Passes to final third %'] + df_Centrale_midtsæsonen['Passes to final third #']+ df_Centrale_midtsæsonen['Vertical passes %'] + df_Centrale_midtsæsonen['Vertical passes #']+ df_Centrale_midtsæsonen['Through passes %'] + df_Centrale_midtsæsonen['Through passes #']+ df_Centrale_midtsæsonen['Progressive passes %'] + df_Centrale_midtsæsonen['Progressive passes #'])/18
     df_Centrale_midtsæsonen['Boldfast'] = (df_Centrale_midtsæsonen['Passes %'] + df_Centrale_midtsæsonen['Passes #']+ df_Centrale_midtsæsonen['Offensive duels %'] + df_Centrale_midtsæsonen['Received passes'] + df_Centrale_midtsæsonen['Succesful dribbles %'] + df_Centrale_midtsæsonen['Succesful dribbles #'])/6
     df_Centrale_midtsæsonen['Spilintelligens defensivt'] = (df_Centrale_midtsæsonen['Duels won %'] + df_Centrale_midtsæsonen['Duels won #'] +df_Centrale_midtsæsonen['Interceptions'] + df_Centrale_midtsæsonen['Counterpressing recoveries #'] + df_Centrale_midtsæsonen['Defensive duels won %'] + df_Centrale_midtsæsonen['Defensive duels won #'])/6
     df_Centrale_midtsæsonen['Samlet'] = (df_Centrale_midtsæsonen['Pasningssikker/Spilvendinger'] + df_Centrale_midtsæsonen['Boldfast'] + df_Centrale_midtsæsonen['Spilintelligens defensivt'])/3
-
     df_Centrale_midtsæsonen = df_Centrale_midtsæsonen[['Pasningssikker/Spilvendinger','Boldfast','Spilintelligens defensivt','Samlet']]
     df_Centrale_midtsæsonen = df_Centrale_midtsæsonen.sort_values(by='Samlet',ascending=False)
 
+    df_Centrale_midt = df_Centrale_midt[df_Centrale_midt['Team name'].str.contains('Horsens')]
+    df_Centrale_midt['Pasningssikker/Spilvendinger'] = (df_Centrale_midt['Passes %'] + df_Centrale_midt['Passes #'] + df_Centrale_midt['Forward Passes %'] + df_Centrale_midt['Forward Passes #'] + df_Centrale_midt['Long Passes %'] + df_Centrale_midt['Long Passes #']+ df_Centrale_midt['Smart passes %'] + df_Centrale_midt['Smart passes #'] + + df_Centrale_midt['Key passes %'] + df_Centrale_midt['Key passes #'] + df_Centrale_midt['Passes to final third %'] + df_Centrale_midt['Passes to final third #']+ df_Centrale_midt['Vertical passes %'] + df_Centrale_midt['Vertical passes #']+ df_Centrale_midt['Through passes %'] + df_Centrale_midt['Through passes #']+ df_Centrale_midt['Progressive passes %'] + df_Centrale_midt['Progressive passes #'])/18
+    df_Centrale_midt['Boldfast'] = (df_Centrale_midt['Passes %'] + df_Centrale_midt['Passes #']+ df_Centrale_midt['Offensive duels %'] + df_Centrale_midt['Received passes'] + df_Centrale_midt['Succesful dribbles %'] + df_Centrale_midt['Succesful dribbles #'])/6
+    df_Centrale_midt['Spilintelligens defensivt'] = (df_Centrale_midt['Duels won %'] + df_Centrale_midt['Duels won #'] +df_Centrale_midt['Interceptions'] + df_Centrale_midt['Counterpressing recoveries #'] + df_Centrale_midt['Defensive duels won %'] + df_Centrale_midt['Defensive duels won #'])/6
+    df_Centrale_midt['Samlet'] = (df_Centrale_midt['Pasningssikker/Spilvendinger'] + df_Centrale_midt['Boldfast'] + df_Centrale_midt['Spilintelligens defensivt'])/3
+    df_Centrale_midt = df_Centrale_midt[['Player name','Team name','label','total_minutesOnField_y','Pasningssikker/Spilvendinger','Boldfast','Spilintelligens defensivt','Samlet']]
+    df_Centrale_midt = df_Centrale_midt.sort_values(by='Samlet',ascending=False)
+
+    df_Centrale_midt = navne.merge(df_Centrale_midt)
+    df_Centrale_midt = df_Centrale_midt.drop('Player Name',axis=1)
+    df_Centrale_midt = df_Centrale_midt.drop('Player name',axis=1)    
+    df_Centrale_midtsæsonen = df_Centrale_midtsæsonen.reset_index()
+    df_Centrale_midtsæsonen = navne.merge(df_Centrale_midtsæsonen)
+    df_Centrale_midt = navne.merge(df_Centrale_midt)
+    df_Centrale_midtsæsonen = df_Centrale_midtsæsonen.drop('Player Name',axis=1)
+    df_Centrale_midtsæsonen = df_Centrale_midtsæsonen.drop('Player name',axis=1)
+    df_Centrale_midtsæsonen = df_Centrale_midtsæsonen.drop('label',axis=1)
+
+
     df_Kanter = pd.merge(df_kanterminutter,df_Kanter,on=('Player id'))
     df_Kanter = df_Kanter[df_Kanter['total_minutesOnField_y'] >=17]
-
 
     df_Kanter['Shots on target %'] = pd.qcut(df_Kanter['percent_shotsOnTarget'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
     df_Kanter['Shots on target #'] = pd.qcut(df_Kanter['average_shotsOnTarget'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -356,11 +414,79 @@ def U15():
     df_Angribere = df_Angribere[df_Angribere['Spillere'].str.contains(option2)]
     df_Kantersæsonen = df_Kantersæsonen[df_Kantersæsonen['Spillere'].str.contains(option2)]
     df_Kanter = df_Kanter[df_Kanter['Spillere'].str.contains(option2)]
+    df_Centrale_midtsæsonen = df_Centrale_midtsæsonen[df_Centrale_midtsæsonen['Spillere'].str.contains(option2)]
+    df_Centrale_midt = df_Centrale_midt[df_Centrale_midt['Spillere'].str.contains(option2)]
+    df_Stopperesæsonen = df_Stopperesæsonen[df_Stoppere['Spillere'].str.contains(option2)]
+    df_Stoppere = df_Stoppere[df_Stoppere['Spillere'].str.contains(option2)]
+
     option = st.multiselect('Vælg kamp (Hvis ingen kamp er valgt, vises alle)',kampe)
     if len(option) > 0:
         temp_select = option
     else:
         temp_select = kampe
+
+    df_backs = df_backs[df_backs['label'].isin(temp_select)]
+    df_backs = df_backs.drop('label',axis=1)
+    df_backssæsonen = df_backssæsonen.groupby(['Spillere','Trup','Team name','Total minutes']).mean()
+    
+    df_backs = df_backs.groupby(['Spillere','Trup','Team name']).agg({
+    'total_minutesOnField_y':'sum',
+    'Indlægsstærk':'mean',
+    '1v1 færdigheder':'mean',
+    'Spilintelligens defensivt':'mean',
+    'Nærkamps- og duelstærk':'mean',
+    'Samlet':'mean'
+    })
+
+    df_backs = df_backs.sort_values(by='Samlet',ascending=False)
+    df_backs = df_backs.rename(columns={'total_minutesOnField_y':'Total minutes'},inplace=False)
+    df_backs = df_backs.reset_index()
+    df_backs = df_backs.set_index(['Spillere','Trup','Team name'])
+    df_backssæsonen = df_backssæsonen.reset_index()
+    df_backssæsonen = df_backssæsonen.set_index(['Spillere','Trup','Team name'])
+    df_backs = pd.concat([df_backs,df_backssæsonen],axis=0)        
+
+    df_Stoppere = df_Stoppere[df_Stoppere['label'].isin(temp_select)]
+    df_Stoppere = df_Stoppere.drop('label',axis=1)
+    df_Stopperesæsonen = df_Stopperesæsonen.groupby(['Spillere','Trup','Team name','Total minutes']).mean()
+    
+    df_Stoppere = df_Stoppere.groupby(['Spillere','Trup','Team name']).agg({
+    'total_minutesOnField_y':'sum',
+    'Pasningssikker':'mean',
+    'Spilintelligens offensivt':'mean',
+    'Spilintelligens defensivt':'mean',
+    'Nærkamps- og duelstærk':'mean',
+    'Samlet':'mean'
+    })
+
+    df_Stoppere = df_Stoppere.sort_values(by='Samlet',ascending=False)
+    df_Stoppere = df_Stoppere.rename(columns={'total_minutesOnField_y':'Total minutes'},inplace=False)
+    df_Stoppere = df_Stoppere.reset_index()
+    df_Stoppere = df_Stoppere.set_index(['Spillere','Trup','Team name'])
+    df_Stopperesæsonen = df_Stopperesæsonen.reset_index()
+    df_Stopperesæsonen = df_Stopperesæsonen.set_index(['Spillere','Trup','Team name'])
+    df_Stoppere = pd.concat([df_Stoppere,df_Stopperesæsonen],axis=0)
+
+    df_Centrale_midt = df_Centrale_midt[df_Centrale_midt['label'].isin(temp_select)]
+    df_Centrale_midt = df_Centrale_midt.drop('label',axis=1)
+    df_Centrale_midtsæsonen = df_Centrale_midtsæsonen.groupby(['Spillere','Trup','Team name','Total minutes']).mean()
+    
+    df_Centrale_midt = df_Centrale_midt.groupby(['Spillere','Trup','Team name']).agg({
+    'total_minutesOnField_y':'sum',
+    'Pasningssikker/Spilvendinger':'mean',
+    'Boldfast':'mean',
+    'Spilintelligens defensivt':'mean',
+    'Samlet':'mean'
+    })
+
+    df_Centrale_midt = df_Centrale_midt.sort_values(by='Samlet',ascending=False)
+    df_Centrale_midt = df_Centrale_midt.rename(columns={'total_minutesOnField_y':'Total minutes'},inplace=False)
+    df_Centrale_midt = df_Centrale_midt.reset_index()
+    df_Centrale_midt = df_Centrale_midt.set_index(['Spillere','Trup','Team name'])
+    df_Centrale_midtsæsonen = df_Centrale_midtsæsonen.reset_index()
+    df_Centrale_midtsæsonen = df_Centrale_midtsæsonen.set_index(['Spillere','Trup','Team name'])
+    df_Centrale_midt = pd.concat([df_Centrale_midt,df_Centrale_midtsæsonen],axis=0)
+   
         
     df_Kanter = df_Kanter[df_Kanter['label'].isin(temp_select)]
     df_Kanter = df_Kanter.drop('label',axis=1)
