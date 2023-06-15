@@ -1879,7 +1879,7 @@ def Individuelt_dashboard():
 
         st.dataframe(selected_df)
         df_filtered = selected_df.iloc[:, 1:]
-
+        st.write('Hver parameter går fra 1-5, hvor 5 er top 20% i ligaen, 4 er top 40% osv.')
         # Create a scatterpolar plot using plotly
         fig = go.Figure()
 
@@ -1894,7 +1894,7 @@ def Individuelt_dashboard():
         fig.data[1].name = 'Hele sæsonen'
         # Set plot title and layout
         fig.update_layout(
-            title='Scatterpolar Plot',
+            title='Plot',
             template='plotly_dark',
             polar=dict(
                 radialaxis=dict
@@ -3074,7 +3074,6 @@ def Individuelt_dashboard():
             'U19':U19}
     rullemenu = st.selectbox('Vælg årgang',Årgange.keys())
     Årgange[rullemenu]()
-
 
 def event_data():
     def U15():
