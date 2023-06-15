@@ -1332,13 +1332,13 @@ def Individuelt_dashboard():
         import ast
         from dateutil import parser
         import plotly.graph_objects as go
-        navne = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Navne.xlsx')
+        navne = pd.read_excel('Navne.xlsx')
         navne = navne[navne['Trup'].str.contains('U15')]
         navneliste = navne['Spillere'].sort_values(ascending=True)
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard U15.csv')
+        df = pd.read_csv('Individuelt dashboard U15.csv')
         df.rename(columns={'playerId': 'Player id'}, inplace=True)
         df = df.astype(str)
-        dfevents = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 eventdata alle.csv',low_memory=False)
+        dfevents = pd.read_csv('U15 eventdata alle.csv',low_memory=False)
         dfevents = dfevents[['Player id','Player name','team_name','label','date','matchId']]
         dfspillernavn = df[['Player id','matchId','positions','average','percent','total']]
         dfspillernavn = dfspillernavn.astype(str)
@@ -1905,7 +1905,6 @@ def Individuelt_dashboard():
         )
         # Render the plot within Streamlit
         st.plotly_chart(fig)
-
     def U17():
         import pandas as pd
         import streamlit as st
@@ -1914,13 +1913,13 @@ def Individuelt_dashboard():
         import ast
         from dateutil import parser
         import plotly.graph_objects as go
-        navne = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Navne.xlsx')
+        navne = pd.read_excel('Navne.xlsx')
         navne = navne[navne['Trup'].str.contains('U17')]
         navneliste = navne['Spillere'].sort_values(ascending=True)
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard U17.csv')
+        df = pd.read_csv('Individuelt dashboard U17.csv')
         df.rename(columns={'playerId': 'Player id'}, inplace=True)
         df = df.astype(str)
-        dfevents = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 eventdata alle.csv',low_memory=False)
+        dfevents = pd.read_csv('U17 eventdata alle.csv',low_memory=False)
         dfevents = dfevents[['Player id','Player name','team_name','label','date','matchId']]
         dfspillernavn = df[['Player id','matchId','positions','average','percent','total']]
         dfspillernavn = dfspillernavn.astype(str)
@@ -2487,7 +2486,6 @@ def Individuelt_dashboard():
         )
         # Render the plot within Streamlit
         st.plotly_chart(fig)
-
     def U19():
         import pandas as pd
         import streamlit as st
@@ -2496,13 +2494,13 @@ def Individuelt_dashboard():
         import ast
         from dateutil import parser
         import plotly.graph_objects as go
-        navne = pd.read_excel(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Navne.xlsx')
+        navne = pd.read_excel('Navne.xlsx')
         navne = navne[navne['Trup'].str.contains('U19')]
         navneliste = navne['Spillere'].sort_values(ascending=True)
-        df = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Individuelt dashboard U19.csv')
+        df = pd.read_csv('Individuelt dashboard U19.csv')
         df.rename(columns={'playerId': 'Player id'}, inplace=True)
         df = df.astype(str)
-        dfevents = pd.read_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 eventdata alle.csv',low_memory=False)
+        dfevents = pd.read_csv('U19 eventdata alle.csv',low_memory=False)
         dfevents = dfevents[['Player id','Player name','team_name','label','date','matchId']]
         dfspillernavn = df[['Player id','matchId','positions','average','percent','total']]
         dfspillernavn = dfspillernavn.astype(str)
@@ -3071,11 +3069,11 @@ def Individuelt_dashboard():
         st.plotly_chart(fig)
 
 
-        Årgange = {'U15':U15,
-                'U17':U17,
-                'U19':U19}
-        rullemenu = st.selectbox('Vælg årgang',Årgange.keys())
-        Årgange[rullemenu]()
+    Årgange = {'U15':U15,
+            'U17':U17,
+            'U19':U19}
+    rullemenu = st.selectbox('Vælg årgang',Årgange.keys())
+    Årgange[rullemenu]()
 
 
 def event_data():
