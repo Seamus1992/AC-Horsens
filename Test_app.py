@@ -1444,7 +1444,7 @@ def Individuelt_dashboard():
 
 
         df_backs = pd.merge(df_backsminutter,df_backs,on=('Player id'))
-        df_backs = df_backs[df_backs['total_minutesOnField_y'] >=17]
+        df_backs = df_backs[df_backs['total_minutesOnField_y'] >=30]
 
         df_backs['Accurate crosses score'] = pd.qcut(df_backs['percent_successfulCrosses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
         df_backs['Number of crosses score'] = pd.qcut(df_backs['average_crosses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -1492,7 +1492,7 @@ def Individuelt_dashboard():
 
 
         df_Stoppere = pd.merge(df_stoppereminutter,df_Stoppere,on=('Player id'))
-        df_Stoppere = df_Stoppere[df_Stoppere['total_minutesOnField_y'] >=17]
+        df_Stoppere = df_Stoppere[df_Stoppere['total_minutesOnField_y'] >=30]
 
         df_Stoppere['Accurate passes score'] = pd.qcut(df_Stoppere['percent_successfulPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
         df_Stoppere['Accurate long passes score'] = pd.qcut(df_Stoppere['percent_successfulLongPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -1550,7 +1550,7 @@ def Individuelt_dashboard():
 
 
         df_Centrale_midt = pd.merge(df_centraleminutter,df_Centrale_midt,on=('Player id'))
-        df_Centrale_midt = df_Centrale_midt[df_Centrale_midt['total_minutesOnField_y'] >=17]
+        df_Centrale_midt = df_Centrale_midt[df_Centrale_midt['total_minutesOnField_y'] >=30]
 
         df_Centrale_midt['Passes %'] = pd.qcut(df_Centrale_midt['percent_successfulPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
         df_Centrale_midt['Passes #'] = pd.qcut(df_Centrale_midt['average_successfulPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -1610,7 +1610,7 @@ def Individuelt_dashboard():
 
 
         df_Kanter = pd.merge(df_kanterminutter,df_Kanter,on=('Player id'))
-        df_Kanter = df_Kanter[df_Kanter['total_minutesOnField_y'] >=17]
+        df_Kanter = df_Kanter[df_Kanter['total_minutesOnField_y'] >=30]
 
         df_Kanter['Shots on target %'] = pd.qcut(df_Kanter['percent_shotsOnTarget'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
         df_Kanter['Shots on target #'] = pd.qcut(df_Kanter['average_shotsOnTarget'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -1676,7 +1676,7 @@ def Individuelt_dashboard():
     
         
         df_Angribere = pd.merge(df_angribereminutter,df_Angribere,on=('Player id'))
-        df_Angribere = df_Angribere[df_Angribere['total_minutesOnField_y'] >=17]
+        df_Angribere = df_Angribere[df_Angribere['total_minutesOnField_y'] >=30]
 
         df_Angribere['Målfarlighed udregning'] = df_Angribere['average_goals'] - df_Angribere['average_xgShot']
         df_Angribere['Målfarlighed score'] =  pd.qcut(df_Angribere['Målfarlighed udregning'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -2026,7 +2026,7 @@ def Individuelt_dashboard():
 
 
         df_backs = pd.merge(df_backsminutter,df_backs,on=('Player id'))
-        df_backs = df_backs[df_backs['total_minutesOnField_y'] >=17]
+        df_backs = df_backs[df_backs['total_minutesOnField_y'] >=30]
 
         df_backs['Accurate crosses score'] = pd.qcut(df_backs['percent_successfulCrosses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
         df_backs['Number of crosses score'] = pd.qcut(df_backs['average_crosses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -2074,7 +2074,7 @@ def Individuelt_dashboard():
 
 
         df_Stoppere = pd.merge(df_stoppereminutter,df_Stoppere,on=('Player id'))
-        df_Stoppere = df_Stoppere[df_Stoppere['total_minutesOnField_y'] >=17]
+        df_Stoppere = df_Stoppere[df_Stoppere['total_minutesOnField_y'] >=30]
 
         df_Stoppere['Accurate passes score'] = pd.qcut(df_Stoppere['percent_successfulPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
         df_Stoppere['Accurate long passes score'] = pd.qcut(df_Stoppere['percent_successfulLongPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -2132,7 +2132,7 @@ def Individuelt_dashboard():
 
 
         df_Centrale_midt = pd.merge(df_centraleminutter,df_Centrale_midt,on=('Player id'))
-        df_Centrale_midt = df_Centrale_midt[df_Centrale_midt['total_minutesOnField_y'] >=17]
+        df_Centrale_midt = df_Centrale_midt[df_Centrale_midt['total_minutesOnField_y'] >=30]
 
         df_Centrale_midt['Passes %'] = pd.qcut(df_Centrale_midt['percent_successfulPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
         df_Centrale_midt['Passes #'] = pd.qcut(df_Centrale_midt['average_successfulPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -2192,7 +2192,7 @@ def Individuelt_dashboard():
 
 
         df_Kanter = pd.merge(df_kanterminutter,df_Kanter,on=('Player id'))
-        df_Kanter = df_Kanter[df_Kanter['total_minutesOnField_y'] >=17]
+        df_Kanter = df_Kanter[df_Kanter['total_minutesOnField_y'] >=30]
 
         df_Kanter['Shots on target %'] = pd.qcut(df_Kanter['percent_shotsOnTarget'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
         df_Kanter['Shots on target #'] = pd.qcut(df_Kanter['average_shotsOnTarget'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -2258,7 +2258,7 @@ def Individuelt_dashboard():
     
         
         df_Angribere = pd.merge(df_angribereminutter,df_Angribere,on=('Player id'))
-        df_Angribere = df_Angribere[df_Angribere['total_minutesOnField_y'] >=17]
+        df_Angribere = df_Angribere[df_Angribere['total_minutesOnField_y'] >=30]
 
         df_Angribere['Målfarlighed udregning'] = df_Angribere['average_goals'] - df_Angribere['average_xgShot']
         df_Angribere['Målfarlighed score'] =  pd.qcut(df_Angribere['Målfarlighed udregning'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -2608,7 +2608,7 @@ def Individuelt_dashboard():
 
 
         df_backs = pd.merge(df_backsminutter,df_backs,on=('Player id'))
-        df_backs = df_backs[df_backs['total_minutesOnField_y'] >=17]
+        df_backs = df_backs[df_backs['total_minutesOnField_y'] >=30]
 
         df_backs['Accurate crosses score'] = pd.qcut(df_backs['percent_successfulCrosses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
         df_backs['Number of crosses score'] = pd.qcut(df_backs['average_crosses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -2656,7 +2656,7 @@ def Individuelt_dashboard():
 
 
         df_Stoppere = pd.merge(df_stoppereminutter,df_Stoppere,on=('Player id'))
-        df_Stoppere = df_Stoppere[df_Stoppere['total_minutesOnField_y'] >=17]
+        df_Stoppere = df_Stoppere[df_Stoppere['total_minutesOnField_y'] >=30]
 
         df_Stoppere['Accurate passes score'] = pd.qcut(df_Stoppere['percent_successfulPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
         df_Stoppere['Accurate long passes score'] = pd.qcut(df_Stoppere['percent_successfulLongPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -2714,7 +2714,7 @@ def Individuelt_dashboard():
 
 
         df_Centrale_midt = pd.merge(df_centraleminutter,df_Centrale_midt,on=('Player id'))
-        df_Centrale_midt = df_Centrale_midt[df_Centrale_midt['total_minutesOnField_y'] >=17]
+        df_Centrale_midt = df_Centrale_midt[df_Centrale_midt['total_minutesOnField_y'] >=30]
 
         df_Centrale_midt['Passes %'] = pd.qcut(df_Centrale_midt['percent_successfulPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
         df_Centrale_midt['Passes #'] = pd.qcut(df_Centrale_midt['average_successfulPasses'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -2774,7 +2774,7 @@ def Individuelt_dashboard():
 
 
         df_Kanter = pd.merge(df_kanterminutter,df_Kanter,on=('Player id'))
-        df_Kanter = df_Kanter[df_Kanter['total_minutesOnField_y'] >=17]
+        df_Kanter = df_Kanter[df_Kanter['total_minutesOnField_y'] >=30]
 
         df_Kanter['Shots on target %'] = pd.qcut(df_Kanter['percent_shotsOnTarget'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
         df_Kanter['Shots on target #'] = pd.qcut(df_Kanter['average_shotsOnTarget'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
@@ -2840,7 +2840,7 @@ def Individuelt_dashboard():
     
         
         df_Angribere = pd.merge(df_angribereminutter,df_Angribere,on=('Player id'))
-        df_Angribere = df_Angribere[df_Angribere['total_minutesOnField_y'] >=17]
+        df_Angribere = df_Angribere[df_Angribere['total_minutesOnField_y'] >=30]
 
         df_Angribere['Målfarlighed udregning'] = df_Angribere['average_goals'] - df_Angribere['average_xgShot']
         df_Angribere['Målfarlighed score'] =  pd.qcut(df_Angribere['Målfarlighed udregning'].rank(method='first'), 5,['1','2','3','4','5']).astype(int)
