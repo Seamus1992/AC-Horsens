@@ -354,7 +354,8 @@ def U15():
     option2 = st.selectbox('Vælg spiller',navneliste)
     df_Angriberesæsonen = df_Angriberesæsonen[df_Angriberesæsonen['Spillere'].str.contains(option2)]
     df_Angribere = df_Angribere[df_Angribere['Spillere'].str.contains(option2)]
-    
+    df_Kantersæsonen = df_Kantersæsonen[df_Kantersæsonen['Spillere'].str.contains(option2)]
+    df_Kanter = df_Kanter[df_Kanter['Spillere'].str.contains(option2)]
     option = st.multiselect('Vælg kamp (Hvis ingen kamp er valgt, vises alle)',kampe)
     if len(option) > 0:
         temp_select = option
@@ -364,6 +365,7 @@ def U15():
     df_Kanter = df_Kanter[df_Kanter['label'].isin(temp_select)]
     df_Kanter = df_Kanter.drop('label',axis=1)
     df_Kantersæsonen = df_Kantersæsonen.groupby(['Spillere','Trup','Team name','Total minutes']).mean()
+    
     df_Kanter = df_Kanter.groupby(['Spillere','Trup','Team name']).agg({
     'total_minutesOnField_y':'sum',
     'Sparkefærdigheder':'mean',
