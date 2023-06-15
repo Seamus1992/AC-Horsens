@@ -3223,13 +3223,28 @@ def event_data():
     rullemenu = st.selectbox('Vælg årgang',Årgange.keys())
     Årgange[rullemenu]()
 
+def forklaring():
+    st.title('Wellness Data')
+    st.write('Alle skalaer går fra 1 til 7, 1 er bedst 7 er værst')
+    st.write('Linjen bliver rød hvis der er en værdi på 6 eller derover, samt hvis der ikke er spist nok eller sovet under 7 timer')
+    st.write('Linjen bliver gul ved en værdi på 5, ved ikke ved om de har spise nok eller hvis søvnen er på 7-8 timer')
+   
+    st.title('GPS Data')
+    st.write('Ved afvigelserne er spilleren på 1.0 hvis han rammer trupgennemsnittet og 0.8 hvis han er 20% under trupgennemsnittet')
+    
+    st.title('Teamsheet')
+    st.write('Skalaen i teamsheet er fra årgangens gennemsnit i den seneste sæson og til ligaens gennemsnit i denne sæson. Omvendt hvis vi præsterede bedre i den seneste sæson end hvad gennemsnittet er i den nuværende sæson')
 
+    st.title('Individuelt dashboard')
+    st.write('Forudsætningen for at der vises spillere i det individuelle dashboard er at de har spillet mere end 300 minutter på den valgte position i sæsonen')
+    st.write('Skalaen går fra 1-5 og er vurderet fra kamp til kamp, så de 20% bedste kampe der er spillet i sæsonen på eksempelvis duels won % giver et 5-tal. Spillerens score er så regnet ud ved et gennemsnit af sine kampe og så er talent-id parametrene regnet ud ved at tage et gennemsnit af flere valgte parametre')
 overskrifter_til_menu = {
     'Wellness Data':Wellness_data,
     'GPS Data': GPS_Data,
     'Teamsheet': Teamsheet,
     'Individuelt dashboard': Individuelt_dashboard,
-    'Event data' : event_data
+    'Event data' : event_data,
+    'Forklaring af data':forklaring
 }
 demo_navn = st.sidebar.selectbox('Vælg dataform',overskrifter_til_menu.keys())
 overskrifter_til_menu[demo_navn]()
