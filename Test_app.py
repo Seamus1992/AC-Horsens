@@ -3237,7 +3237,7 @@ def forklaring():
 
     st.title('Individuelt dashboard')
     st.write('Forudsætningen for at der vises spillere i det individuelle dashboard er at de har spillet mere end 300 minutter på den valgte position i sæsonen')
-    st.write('Skalaen går fra 1-5 og er vurderet fra kamp til kamp, så de 20% bedste kampe der er spillet i sæsonen på eksempelvis duels won % giver et 5-tal. Spillerens score er så regnet ud ved et gennemsnit af sine kampe og så er talent-id parametrene regnet ud ved at tage et gennemsnit af flere valgte parametre')
+    st.write('Skalaen går fra 1-5 og er vurderet fra kamp til kamp, så de 20% bedste kampe der er spillet i sæsonen på eksempelvis duels won % giver et 5-tal. Spillerens score er så regnet ud ved et gennemsnit af sine kampe og så er talent-id parametrene regnet ud ved at tage et gennemsnit af flere valgte parametre. For at en kamp tæller med i regnestykket skal spilleren have spillet minimum 30 minutter i kampen')
 overskrifter_til_menu = {
     'Wellness Data':Wellness_data,
     'GPS Data': GPS_Data,
