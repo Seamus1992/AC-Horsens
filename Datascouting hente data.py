@@ -132,7 +132,7 @@ df['matchId'] = df['matchId'].astype(str)
 df['Player id'] = df['Player id'].astype(str)
 df.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U15 eventdata alle.csv')
 
-print('Matchdetails hentet')
+print('U15 ligaen hentet')
 
 from azure.storage.fileshare import ShareServiceClient
 import json
@@ -268,7 +268,7 @@ df['matchId'] = df['matchId'].astype(str)
 df['Player id'] = df['Player id'].astype(str)
 df.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 eventdata alle.csv')
 
-print('Matchdetails hentet')
+print('U17 ligaen hentet')
 
 from azure.storage.fileshare import ShareServiceClient
 import json
@@ -404,7 +404,7 @@ df['matchId'] = df['matchId'].astype(str)
 df['Player id'] = df['Player id'].astype(str)
 df.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 eventdata alle.csv')
 
-print('Matchdetails hentet')
+print('U19 ligaen hentet')
 
 connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2025-01-11T22:47:25Z&st=2022-01-11T14:47:25Z&spr=https&sig=CXdXPlHz%2FhW0IRugFTfCrB7osNQVZJ%2BHjNR1EM2s6RU%3D;FileEndpoint=https://divforeningendataout1.file.core.windows.net/;'
 share_name = 'divisionsforeningen-outgoingdata'
@@ -534,7 +534,7 @@ df['matchId'] = df['matchId'].astype(str)
 df['Player id'] = df['Player id'].astype(str)
 df.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U17 div eventdata alle.csv')
 
-print('Matchdetails hentet')
+print('U17 divisionen hentet')
 
 connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2025-01-11T22:47:25Z&st=2022-01-11T14:47:25Z&spr=https&sig=CXdXPlHz%2FhW0IRugFTfCrB7osNQVZJ%2BHjNR1EM2s6RU%3D;FileEndpoint=https://divforeningendataout1.file.core.windows.net/;'
 share_name = 'divisionsforeningen-outgoingdata'
@@ -664,7 +664,7 @@ df['matchId'] = df['matchId'].astype(str)
 df['Player id'] = df['Player id'].astype(str)
 df.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\U19 div eventdata alle.csv')
 
-print('Matchdetails hentet')
+print('U19 divisionen hentet')
 
 connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2025-01-11T22:47:25Z&st=2022-01-11T14:47:25Z&spr=https&sig=CXdXPlHz%2FhW0IRugFTfCrB7osNQVZJ%2BHjNR1EM2s6RU%3D;FileEndpoint=https://divforeningendataout1.file.core.windows.net/;'
 share_name = 'divisionsforeningen-outgoingdata'
@@ -794,7 +794,7 @@ df['matchId'] = df['matchId'].astype(str)
 df['Player id'] = df['Player id'].astype(str)
 df.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\Superliga eventdata alle.csv')
 
-print('Matchdetails hentet')
+print('Superligaen hentet')
 
 connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2025-01-11T22:47:25Z&st=2022-01-11T14:47:25Z&spr=https&sig=CXdXPlHz%2FhW0IRugFTfCrB7osNQVZJ%2BHjNR1EM2s6RU%3D;FileEndpoint=https://divforeningendataout1.file.core.windows.net/;'
 share_name = 'divisionsforeningen-outgoingdata'
@@ -924,7 +924,7 @@ df['matchId'] = df['matchId'].astype(str)
 df['Player id'] = df['Player id'].astype(str)
 df.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\1.div eventdata alle.csv')
 
-print('Matchdetails hentet')
+print('1. division hentet')
 
 connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2025-01-11T22:47:25Z&st=2022-01-11T14:47:25Z&spr=https&sig=CXdXPlHz%2FhW0IRugFTfCrB7osNQVZJ%2BHjNR1EM2s6RU%3D;FileEndpoint=https://divforeningendataout1.file.core.windows.net/;'
 share_name = 'divisionsforeningen-outgoingdata'
@@ -1054,7 +1054,7 @@ df['matchId'] = df['matchId'].astype(str)
 df['Player id'] = df['Player id'].astype(str)
 df.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\2.div eventdata alle.csv')
 
-print('Matchdetails hentet')
+print('2. div hentet')
 
 connection_string = 'SharedAccessSignature=sv=2020-08-04&ss=f&srt=sco&sp=rl&se=2025-01-11T22:47:25Z&st=2022-01-11T14:47:25Z&spr=https&sig=CXdXPlHz%2FhW0IRugFTfCrB7osNQVZJ%2BHjNR1EM2s6RU%3D;FileEndpoint=https://divforeningendataout1.file.core.windows.net/;'
 share_name = 'divisionsforeningen-outgoingdata'
@@ -1184,4 +1184,4 @@ df['matchId'] = df['matchId'].astype(str)
 df['Player id'] = df['Player id'].astype(str)
 df.to_csv(r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens\3.div eventdata alle.csv')
 
-print('Matchdetails hentet')
+print('3. division hentet')
