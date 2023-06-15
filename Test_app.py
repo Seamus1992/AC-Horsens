@@ -3040,7 +3040,7 @@ def Individuelt_dashboard():
             selected_df = df_Kanter
         elif selected_dataframe == 'Angriber':
             selected_df = df_Angribere
-
+        st.title(option2 + 'Fodbold')
         st.dataframe(selected_df)
         df_filtered = selected_df.iloc[:, 1:]
         st.write('Hver parameter går fra 1-5, hvor 5 er top 20% i ligaen, 4 er top 40% osv.')
