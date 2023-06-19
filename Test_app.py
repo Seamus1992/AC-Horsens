@@ -3240,10 +3240,15 @@ def forklaring():
     st.write('Skalaen går fra 1-5 og er vurderet fra kamp til kamp, så de 20% bedste kampe der er spillet i sæsonen på eksempelvis duels won % giver et 5-tal. Spillerens score er så regnet ud ved et gennemsnit af sine kampe og så er talent-id parametrene regnet ud ved at tage et gennemsnit af flere valgte parametre. For at en kamp tæller med i regnestykket skal spilleren have spillet minimum 30 minutter i kampen')
     st.write('Forklaring af de forskellige talent id parametre:')
     st.header('Stoppere')
-    st.write('Stoppere pasningssikker: Accurate passes, accurate long passes, forward passes, accurate forward passes, accurate progressive passes, accurate vertical passes')
-    st.write('Stoppere spilintelligens defensivt: Interceptions, successful defensive actions, shots blocked, defensive duels won %')
-    st.write('Stoppere Spilintelligens offensivt: Forward passes, accurate forward passes, accurate passes to final third, passes to final third, accurate progressive passes, progressive passes, through passes, accurate through passes, progressive runs, offensive duels won %, successful dribbles %')
-    st.write('Stoppere nærkamps- og duelstærk: Defensive duels won %, Aerial duels won %')
+    st.write('Pasningssikker: Accurate passes, accurate long passes, forward passes, accurate forward passes, accurate progressive passes, accurate vertical passes')
+    st.write('Spilintelligens defensivt: Interceptions, successful defensive actions, shots blocked, defensive duels won %')
+    st.write('Spilintelligens offensivt: Forward passes, accurate forward passes, accurate passes to final third, passes to final third, accurate progressive passes, progressive passes, through passes, accurate through passes, progressive runs, offensive duels won %, successful dribbles %')
+    st.write('Nærkamps- og duelstærk: Defensive duels won %, Aerial duels won %')
+    st.header('Backs')
+    st.write('Indlægsstærk: Number of crosses, Accurate crosses, XA, Passes to final third')
+    st.write('1v1 færdigheder: successful dribbles, defensive duels won, progressive runs, Offensive duels won, accelerations, duels won')
+    st.write('Spilintelligens defensivt: Interceptions, successful defensive actions, duels won, defensive duels won')
+    st.write('Fart: Successful dribbles, progressive runs, offensive duels won, accelerations')
 
 overskrifter_til_menu = {
     'Wellness Data':Wellness_data,
