@@ -3239,7 +3239,7 @@ def forklaring():
     st.write('Forudsætningen for at der vises spillere i det individuelle dashboard er at de har spillet mere end 300 minutter på den valgte position i sæsonen')
     st.write('Skalaen går fra 1-5 og er vurderet fra kamp til kamp, så de 20% bedste kampe der er spillet i sæsonen på eksempelvis duels won % giver et 5-tal. Spillerens score er så regnet ud ved et gennemsnit af sine kampe og så er talent-id parametrene regnet ud ved at tage et gennemsnit af flere valgte parametre. For at en kamp tæller med i regnestykket skal spilleren have spillet minimum 30 minutter i kampen')
     st.write('Forklaring af de forskellige talent id parametre:')
-    st.write('Stoppere')
+    st.header('Stoppere')
     st.write('Stoppere pasningssikker: Accurate passes, accurate long passes, forward passes, accurate forward passes, accurate progressive passes, accurate vertical passes')
     st.write('Stoppere spilintelligens defensivt: Interceptions, successful defensive actions, shots blocked, defensive duels won %')
     st.write('Stoppere Spilintelligens offensivt: Forward passes, accurate forward passes, accurate passes to final third, passes to final third, accurate progressive passes, progressive passes, through passes, accurate through passes, progressive runs, offensive duels won %, successful dribbles %')
