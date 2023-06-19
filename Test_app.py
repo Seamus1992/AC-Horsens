@@ -3249,6 +3249,10 @@ def forklaring():
     st.write('1v1 færdigheder: successful dribbles, defensive duels won, progressive runs, Offensive duels won, accelerations, duels won')
     st.write('Spilintelligens defensivt: Interceptions, successful defensive actions, duels won, defensive duels won')
     st.write('Fart: Successful dribbles, progressive runs, offensive duels won, accelerations')
+    st.header('Centrale midt')
+    st.write('Pasningssikker/spilvendinger: Accurate passes %, Number of passes, accurate forward passes, number of forward passes, accurate long passes %, number of long passes, accurate smart passes %, number of smart passes, accurate key passes %, number of key passes, accurate passes to final third %, number of passes to final third, accurate vertical passes, number of vertical passes, accurate through passes %, number of through passes, accurate progressive passes %, number of progressive passes')
+    st.write('Boldfast: accurate passes %, number of passes, offensive duels won %, received passes, successful dribbles %, number of successful dribbles')
+    st.write('Spilintelligens defensivt: Duels won %, number of duels won, interceptions, number of counterpressing recoveries, defensive duels won %, number of defensive duels won')
 
 overskrifter_til_menu = {
     'Wellness Data':Wellness_data,
